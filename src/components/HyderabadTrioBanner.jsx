@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { 
-  Car, 
-  Bike, 
-  Sparkles, 
-  ShieldCheck, 
-  ArrowRight, 
-  Clock, 
-  CheckCircle2, 
-  Zap, 
-  MapPin, 
-  PhoneCall, 
-  Activity, 
-  Navigation, 
-  Radio, 
-  Gauge, 
-  Users, 
+import {
+  Car,
+  Bike,
+  Sparkles,
+  ShieldCheck,
+  ArrowRight,
+  Clock,
+  CheckCircle2,
+  Zap,
+  MapPin,
+  PhoneCall,
+  Activity,
+  Navigation,
+  Radio,
+  Gauge,
+  Users,
   Briefcase,
   Check
 } from 'lucide-react';
@@ -143,7 +143,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
   return (
     <section className="py-10 sm:py-14 bg-[#F8FAFC] border-b border-slate-200" id="trio-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 space-y-2.5">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300 text-xs font-bold uppercase tracking-wider shadow-xs">
@@ -162,20 +162,19 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
         {/* Bento Grid Architecture */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          
+
           {/* MAIN STAGE BENTO (8 Cols) */}
           <div className="lg:col-span-8 bg-white rounded-3xl border border-slate-200/90 shadow-lg p-5 sm:p-7 flex flex-col justify-between space-y-5">
-            
+
             {/* Top Interactive Mode Pills */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
               <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 rounded-2xl">
                 <button
                   onClick={() => setActiveMode('trio')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    activeMode === 'trio'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'trio'
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-700 hover:text-blue-700'
-                  }`}
+                    }`}
                 >
                   <Sparkles size={13} />
                   <span>All 3 Modes</span>
@@ -183,11 +182,10 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
                 <button
                   onClick={() => setActiveMode('bike')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    activeMode === 'bike'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'bike'
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-700 hover:text-blue-700'
-                  }`}
+                    }`}
                 >
                   <Bike size={14} />
                   <span>Bike Moto</span>
@@ -195,11 +193,10 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
                 <button
                   onClick={() => setActiveMode('auto')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    activeMode === 'auto'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'auto'
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-700 hover:text-blue-700'
-                  }`}
+                    }`}
                 >
                   <AutoRickshawIcon size={14} />
                   <span>Metered Auto</span>
@@ -207,11 +204,10 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
                 <button
                   onClick={() => setActiveMode('car')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    activeMode === 'car'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'car'
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-700 hover:text-blue-700'
-                  }`}
+                    }`}
                 >
                   <Car size={14} />
                   <span>Prime AC Cabs</span>
@@ -225,8 +221,8 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
             {/* Dynamic Visual Stage with Glassmorphic Telemetry HUD */}
             <div className="relative h-64 sm:h-80 w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 group">
-              <img 
-                src={current.image} 
+              <img
+                src={current.image}
                 alt={current.name}
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
@@ -263,7 +259,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
             {/* Quick Specs & Booking Action */}
             <div className="space-y-4">
-              
+
               {/* Telemetry Spec Badges */}
               <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
                 <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
@@ -292,14 +288,14 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
               </div>
 
               {/* Highlights */}
-              <div className="space-y-1.5 pt-1">
+              {/* <div className="space-y-1.5 pt-1">
                 {current.highlights.map((h, i) => (
                   <div key={i} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                     <CheckCircle2 size={13} className="text-emerald-600 flex-shrink-0" />
                     <span>{h}</span>
                   </div>
                 ))}
-              </div>
+              </div> */}
 
               {/* Main Booking Trigger */}
               <button
@@ -316,7 +312,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
           {/* RIGHT TELEMETRY BENTO WIDGETS (4 Cols) */}
           <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
-            
+
             {/* WIDGET 1: Live Dispatch Radar */}
             <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-5 space-y-3">
               <div className="flex items-center justify-between">
@@ -415,15 +411,14 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
         {/* BOTTOM TACTILE MODE CARDS (3 Columns) */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          
+
           {/* Card 1: Moto */}
           <div
             onClick={() => setActiveMode('bike')}
-            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${
-              activeMode === 'bike'
+            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'bike'
                 ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
                 : 'border-slate-200 hover:border-slate-300'
-            }`}
+              }`}
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
@@ -442,11 +437,10 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
           {/* Card 2: Auto */}
           <div
             onClick={() => setActiveMode('auto')}
-            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${
-              activeMode === 'auto'
+            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'auto'
                 ? 'border-amber-500 ring-2 ring-amber-400/20 bg-amber-50/30'
                 : 'border-slate-200 hover:border-slate-300'
-            }`}
+              }`}
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
@@ -465,11 +459,10 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
           {/* Card 3: Cab */}
           <div
             onClick={() => setActiveMode('car')}
-            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${
-              activeMode === 'car'
+            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'car'
                 ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
                 : 'border-slate-200 hover:border-slate-300'
-            }`}
+              }`}
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">

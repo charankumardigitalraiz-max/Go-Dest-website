@@ -35,38 +35,41 @@ export default function App() {
     scrollToBook();
   };
 
-  const handleSelectRoute = (route) => {
+  const handleSelectRoute = (route, category) => {
     setSelectedRoute(route);
+    if (category) {
+      setSelectedCategory(category);
+    }
     scrollToBook();
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-900 font-['Plus_Jakarta_Sans'] selection:bg-amber-200 selection:text-slate-900">
-      
+
       {/* Navigation */}
       <Navbar onBookClick={scrollToBook} />
 
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section with Live Booking Engine for Car, Bike, and Auto */}
-        <Hero 
+        <Hero
           onStartBooking={handleStartBooking}
           selectedPreRoute={selectedRoute}
           selectedPreCategory={selectedCategory}
         />
 
         {/* 3 Ways to Ride: Car, Bike & Auto Showcase with Hitec City visual */}
-        <HyderabadTrioBanner 
+        <HyderabadTrioBanner
           onSelectCategory={handleSelectCategory}
         />
 
         {/* Vehicle Fleet: Car, Bike, Auto Showcase with realistic photos */}
-        <VehicleFleet 
+        <VehicleFleet
           onSelectVehicle={handleSelectVehicleFromFleet}
         />
 
         {/* Popular Hyderabad Routes with side-by-side Fare comparison */}
-        <HyderabadRoutes 
+        <HyderabadRoutes
           onSelectRoute={handleSelectRoute}
         />
 
@@ -85,7 +88,7 @@ export default function App() {
 
       {/* Interactive Booking Simulation Modal */}
       {activeBooking && (
-        <BookingModal 
+        <BookingModal
           bookingData={activeBooking}
           onClose={() => setActiveBooking(null)}
         />
