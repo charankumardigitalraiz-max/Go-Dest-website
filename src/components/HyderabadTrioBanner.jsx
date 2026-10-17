@@ -1,212 +1,380 @@
-import React from 'react';
-import { Car, Bike, Sparkles, ShieldCheck, ArrowRight, Clock, Users, CheckCircle2, Zap } from 'lucide-react';
+import React, { useState } from 'react';
+import { Car, Bike, Sparkles, ShieldCheck, ArrowRight, Clock, CheckCircle2, Zap, Star, MapPin, PhoneCall, Headphones } from 'lucide-react';
 import { AutoRickshawIcon } from './VehicleIcon';
 
-export default function HyderabadTrioBanner() {
-  const mobilityOptions = [
-    {
-      id: 'bike',
-      name: 'GODest Moto',
-      subtitle: 'Fastest Solo Commute',
-      fare: 'From ₹25',
-      time: '2-3 Min Arrival',
-      capacity: '1 Passenger',
-      badge: 'Beat Traffic',
-      badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
-      iconBg: 'bg-amber-500 text-blue-950',
-      borderColor: 'hover:border-amber-400',
-      features: [
-        'Free sanitized helmet provided',
-        'Zips through Hitec City peak traffic',
-        'Live GPS tracking & SOS support'
-      ],
-      icon: <Bike size={26} />
-    },
-    {
-      id: 'auto',
-      name: 'GODest Auto',
-      subtitle: 'Metered Rickshaw Ride',
-      fare: 'From ₹40',
-      time: '3-4 Min Arrival',
-      capacity: '3 Passengers',
-      badge: 'Zero Bargaining',
-      badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-      iconBg: 'bg-emerald-600 text-white',
-      borderColor: 'hover:border-emerald-400',
-      features: [
-        'Government metered fare calculation',
-        'Seats up to 3 with shopping bags',
-        'Doorstep pickup anywhere in Hyderabad'
-      ],
-      icon: <AutoRickshawIcon size={26} />
-    },
-    {
-      id: 'cab',
-      name: 'GODest Prime Cabs',
-      subtitle: 'AC Cabs & Electric SUVs',
-      fare: 'From ₹120',
-      time: '4-5 Min Arrival',
-      capacity: '4-6 Passengers',
-      badge: 'Airport & Family',
-      badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
-      iconBg: 'bg-blue-600 text-white',
-      borderColor: 'hover:border-blue-400',
-      features: [
-        'Full climate control AC & luggage trunk',
-        'Zero driver cancellation promise',
-        'Dedicated Rajiv Gandhi Airport pickup'
-      ],
-      icon: <Car size={26} />
+export default function HyderabadTrioBanner({ onSelectCategory }) {
+  const [selectedPersona, setSelectedPersona] = useState('all'); // 'all' | 'rush' | 'errands' | 'airport'
+
+  const handleBook = (category) => {
+    if (onSelectCategory) {
+      onSelectCategory(category);
+    } else {
+      const el = document.getElementById('book-section');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+  };
+
+  const personaFilters = [
+    { id: 'all', label: 'All 3 Ride Modes' },
+    { id: 'rush', label: 'Daily Office Rush', targetCategory: 'bike' },
+    { id: 'errands', label: 'Local Market & Errands', targetCategory: 'auto' },
+    { id: 'airport', label: 'Airport & Family Trip', targetCategory: 'car' }
   ];
 
   return (
-    <section className="py-10 sm:py-14 bg-gradient-to-b from-white via-slate-50/60 to-white border-b border-slate-200" id="trio-section">
+    <section className="py-10 sm:py-14 bg-gradient-to-b from-white via-slate-50 to-white border-b border-slate-200" id="trio-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header - Clean Typography & Inspiring Layout */}
-        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
-            <Sparkles size={14} className="text-amber-600" />
-            <span>HYDERABAD MOBILITY ECOSYSTEM</span>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300 text-xs font-bold uppercase tracking-wider shadow-xs">
+            <Sparkles size={13} className="text-[#F5B800]" />
+            <span>HYDERABAD'S 3-IN-1 MOBILITY NETWORK</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-['Outfit'] text-slate-900 tracking-tight leading-tight">
-            Three Ways to Move Across <span className="text-blue-600">Hyderabad</span>
+            Three Ways to Move <span className="text-blue-600">Hyderabad</span>
           </h2>
 
-          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-            Whether you need a quick bike taxi to beat Madhapur rush hours, a metered auto for local trips, or an air-conditioned cab for airport flights, GODest delivers in one single app.
+          <p className="text-slate-600 text-xs sm:text-sm font-medium max-w-2xl mx-auto">
+            Choose the ride that matches your route, budget, and timing. 100% verified captains, transparent digital meters, and zero surge pricing across Cyberabad, Old City, and Secunderabad.
           </p>
-        </div>
 
-        {/* Hero Visual Card - 100% Crystal Clear Photographic Banner (No Blue Tint Overlays) */}
-        <div className="relative rounded-3xl overflow-hidden bg-white border border-slate-200/90 shadow-2xl mb-8 group">
-          <div className="relative h-64 sm:h-80 md:h-[380px] lg:h-[440px] w-full overflow-hidden bg-slate-100">
-            <img 
-              src="/images/godest_hitec_city_mobility_trio_a.png" 
-              alt="GODest Car, Bike Taxi, and Auto Rickshaw in front of Hyderabad Cyber Towers" 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-
-            {/* Top Left Floating Tag */}
-            <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-xl border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#F5B800]"></span>
-              <span>Cyber Towers • Hitec City Hub</span>
-            </div>
-
-            {/* Top Right Floating Tag */}
-            <div className="absolute top-4 right-4 z-10 hidden sm:flex items-center gap-2 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-xl border border-slate-200 text-slate-900 text-xs font-bold">
-              <ShieldCheck size={16} className="text-emerald-600" />
-              <span>Verified Captains</span>
-            </div>
-
-            {/* Bottom Floating Glass Card */}
-            <div className="absolute bottom-4 left-4 right-4 sm:right-auto z-10 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-slate-200 max-w-md">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#F5B800] text-blue-950 font-bold flex items-center justify-center text-sm shadow-sm flex-shrink-0">
-                  GD
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900 text-sm font-['Outfit']">
-                    Car • Bike Taxi • Auto Rickshaw
-                  </h4>
-                  <p className="text-[11px] text-slate-500">
-                    Hyderabad’s trusted 3-in-1 mobility network with zero surge guarantee
-                  </p>
-                </div>
-              </div>
-            </div>
+          {/* Persona Filter Chips */}
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
+            {personaFilters.map((tab) => {
+              const isActive = selectedPersona === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedPersona(tab.id)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-600/20'
+                      : 'bg-white text-slate-700 hover:text-blue-700 border border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* 3-Card Vehicle Showcase Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {mobilityOptions.map((item) => (
-            <div 
-              key={item.id}
-              className={`bg-white rounded-3xl p-6 sm:p-7 border-2 border-slate-200/90 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between ${item.borderColor}`}
-            >
+        {/* 3 Side-by-Side Pillar Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          
+          {/* CARD 1: GODest Moto (Bike Taxi) */}
+          <div 
+            className={`bg-white rounded-3xl border transition-all duration-300 flex flex-col justify-between overflow-hidden group shadow-md hover:shadow-xl ${
+              selectedPersona === 'rush' 
+                ? 'border-blue-600 ring-2 ring-blue-500/30 -translate-y-1' 
+                : 'border-slate-200/90 hover:border-blue-300'
+            }`}
+          >
+            {/* Visual Banner */}
+            <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-100">
+              <img 
+                src="/images/godest_hitec_city_mobility_trio_b.png" 
+                alt="GODest Moto Bike Taxi in Hyderabad"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+
+              {/* Top Tag */}
+              <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl shadow-sm border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1.5">
+                <Zap size={13} className="text-amber-500" />
+                <span>Fastest in Traffic</span>
+              </div>
+
+              {/* ETA Badge */}
+              <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-xl shadow-sm border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1">
+                <Clock size={12} className="text-blue-600" />
+                <span>~2 min pickup</span>
+              </div>
+            </div>
+
+            {/* Card Body */}
+            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+              
               <div>
-                {/* Header row with Icon and Badge */}
-                <div className="flex items-center justify-between mb-5">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-md ${item.iconBg}`}>
-                    {item.icon}
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
+                      <Bike size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-lg font-['Outfit']">
+                        GODest Moto
+                      </h3>
+                      <p className="text-[11px] text-blue-700 font-semibold">Fast Solo Commute</p>
+                    </div>
                   </div>
-                  <span className={`text-[11px] font-bold px-3 py-1 rounded-full border ${item.badgeColor}`}>
-                    {item.badge}
-                  </span>
+
+                  <div className="text-right">
+                    <span className="text-lg font-bold text-slate-900 font-['Outfit'] block leading-none">
+                      Starts ₹25
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-medium">₹7 / km</span>
+                  </div>
                 </div>
 
-                {/* Name & Pricing */}
-                <h3 className="text-xl font-bold text-slate-900 font-['Outfit'] mb-1">
-                  {item.name}
-                </h3>
-                <p className="text-xs text-slate-500 mb-4 font-medium">
-                  {item.subtitle}
+                <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
+                  Zips past Cyber Towers, Madhapur, and Gachibowli rush hours. The fastest way to beat Hyderabad bottlenecks.
                 </p>
 
-                <div className="flex items-baseline gap-2 pb-4 mb-4 border-b border-slate-100">
-                  <span className="text-2xl sm:text-3xl font-bold text-blue-600 font-['Outfit']">
-                    {item.fare}
-                  </span>
-                  <span className="text-xs text-slate-400">base starting fare</span>
-                </div>
-
-                {/* Quick Specs */}
-                <div className="grid grid-cols-2 gap-2 mb-5 text-[11px] font-semibold text-slate-700">
-                  <div className="flex items-center gap-1.5 p-2 bg-slate-50 rounded-xl border border-slate-100">
-                    <Clock size={14} className="text-blue-600 flex-shrink-0" />
-                    <span>{item.time}</span>
+                {/* Features */}
+                <div className="space-y-2 pt-2 border-t border-slate-100">
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Free sanitized safety helmet for every rider</span>
                   </div>
-                  <div className="flex items-center gap-1.5 p-2 bg-slate-50 rounded-xl border border-slate-100">
-                    <Users size={14} className="text-blue-600 flex-shrink-0" />
-                    <span>{item.capacity}</span>
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Zero surge pricing even during peak rain hours</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Rapid 2-minute captain dispatch across all hubs</span>
                   </div>
                 </div>
-
-                {/* Feature Bullet Points */}
-                <ul className="space-y-2.5 text-xs text-slate-600 mb-6">
-                  {item.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle2 size={15} className="text-emerald-500 flex-shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
 
-              {/* Action Link to Booking Form */}
-              <a 
-                href="#book-section"
-                className="w-full flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-3 px-4 rounded-xl text-xs shadow-md hover:shadow-lg transition-all"
+              {/* Action Button */}
+              <button
+                onClick={() => handleBook('bike')}
+                className="w-full mt-4 flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm shadow-sm hover:shadow-md transition-all cursor-pointer"
               >
-                <span>Select & Book {item.name}</span>
-                <ArrowRight size={14} />
-              </a>
+                <span>Book Bike Taxi</span>
+                <ArrowRight size={15} />
+              </button>
 
             </div>
-          ))}
+          </div>
+
+          {/* CARD 2: GODest Auto (Metered Rickshaw) */}
+          <div 
+            className={`bg-white rounded-3xl border transition-all duration-300 flex flex-col justify-between overflow-hidden group shadow-md hover:shadow-xl ${
+              selectedPersona === 'errands' 
+                ? 'border-amber-400 ring-2 ring-amber-400/40 -translate-y-1' 
+                : 'border-slate-200/90 hover:border-amber-300'
+            }`}
+          >
+            {/* Visual Banner */}
+            <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-100">
+              <img 
+                src="/images/godest_auto_rickshaw_product_a.png" 
+                alt="GODest Auto Rickshaw in Hyderabad"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+
+              {/* Top Tag */}
+              <div className="absolute top-3 left-3 bg-amber-100/95 backdrop-blur-md px-3 py-1 rounded-xl shadow-sm border border-amber-300 text-amber-950 text-xs font-bold flex items-center gap-1.5">
+                <Star size={13} className="text-amber-600 fill-amber-600" />
+                <span>Hyderabad Favorite</span>
+              </div>
+
+              {/* ETA Badge */}
+              <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-xl shadow-sm border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1">
+                <Clock size={12} className="text-blue-600" />
+                <span>~3 min pickup</span>
+              </div>
+            </div>
+
+            {/* Card Body */}
+            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+              
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-200">
+                      <AutoRickshawIcon size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-lg font-['Outfit']">
+                        GODest Auto
+                      </h3>
+                      <p className="text-[11px] text-amber-800 font-semibold">Metered 3-Seater</p>
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <span className="text-lg font-bold text-slate-900 font-['Outfit'] block leading-none">
+                      Starts ₹35
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-medium">Digital Meter</span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
+                  Doorstep pickup for up to 3 passengers. 100% digital meter with zero street haggling or driver refusals.
+                </p>
+
+                {/* Features */}
+                <div className="space-y-2 pt-2 border-t border-slate-100">
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Strictly digital meter tariffs matched to RTA norms</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Comfortable 3-passenger seating with shopping bag space</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>No bargaining required — exact fare calculated in-app</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <button
+                onClick={() => handleBook('auto')}
+                className="w-full mt-4 flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm shadow-sm hover:shadow-md transition-all cursor-pointer"
+              >
+                <span>Book Metered Auto</span>
+                <ArrowRight size={15} />
+              </button>
+
+            </div>
+          </div>
+
+          {/* CARD 3: GODest Prime Cabs & Electric SUV */}
+          <div 
+            className={`bg-white rounded-3xl border transition-all duration-300 flex flex-col justify-between overflow-hidden group shadow-md hover:shadow-xl ${
+              selectedPersona === 'airport' 
+                ? 'border-blue-600 ring-2 ring-blue-500/30 -translate-y-1' 
+                : 'border-slate-200/90 hover:border-blue-300'
+            }`}
+          >
+            {/* Visual Banner */}
+            <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-100">
+              <img 
+                src="/images/godest_electric_suv_studio_a.png" 
+                alt="GODest Electric SUV and AC Cabs"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+
+              {/* Top Tag */}
+              <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl shadow-sm border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1.5">
+                <ShieldCheck size={13} className="text-emerald-600" />
+                <span>100% Chilled AC</span>
+              </div>
+
+              {/* ETA Badge */}
+              <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-xl shadow-sm border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1">
+                <Clock size={12} className="text-blue-600" />
+                <span>~4 min pickup</span>
+              </div>
+            </div>
+
+            {/* Card Body */}
+            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+              
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
+                      <Car size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-lg font-['Outfit']">
+                        GODest Prime Cabs
+                      </h3>
+                      <p className="text-[11px] text-blue-700 font-semibold">Electric SUV & AC Sedans</p>
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <span className="text-lg font-bold text-slate-900 font-['Outfit'] block leading-none">
+                      Starts ₹89
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-medium">Large Boot</span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
+                  Spacious air-conditioned sedans and silent electric SUVs with ample trunk space for airport suitcases and family travel.
+                </p>
+
+                {/* Features */}
+                <div className="space-y-2 pt-2 border-t border-slate-100">
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Guaranteed 100% AC operation without extra surcharges</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Zero driver cancellation guarantee for scheduled rides</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Fixed flat airport rates to RGIA Shamshabad</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <button
+                onClick={() => handleBook('car')}
+                className="w-full mt-4 flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm shadow-sm hover:shadow-md transition-all cursor-pointer"
+              >
+                <span>Book AC Cab</span>
+                <ArrowRight size={15} />
+              </button>
+
+            </div>
+          </div>
+
         </div>
 
-        {/* Bottom Trust Guarantee Strip */}
-        <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-md flex flex-wrap items-center justify-around gap-4 text-xs font-semibold text-slate-700">
-          <div className="flex items-center gap-2">
-            <ShieldCheck size={18} className="text-emerald-600" />
-            <span>100% Police Verified Drivers</span>
+        {/* Bottom Trust Pillars Ribbon */}
+        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+          
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center flex-shrink-0 border border-amber-200">
+              <Zap size={18} />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-slate-900 font-['Outfit']">Zero Surge Pricing</h4>
+              <p className="text-[11px] text-slate-500 font-medium">Transparent fares 24x7</p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Zap size={18} className="text-[#F5B800]" />
-            <span>Zero Surge Guarantee</span>
+
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center flex-shrink-0 border border-emerald-200">
+              <ShieldCheck size={18} />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-slate-900 font-['Outfit']">Verified Captains</h4>
+              <p className="text-[11px] text-slate-500 font-medium">Police verified & trained</p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Clock size={18} className="text-blue-600" />
-            <span>Average 2-3 Mins Arrival</span>
+
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 border border-blue-200">
+              <MapPin size={18} />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-slate-900 font-['Outfit']">Live GPS & SOS</h4>
+              <p className="text-[11px] text-slate-500 font-medium">Hyderabad police integrated</p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Sparkles size={18} className="text-amber-500" />
-            <span>Transparent Digital Meter</span>
+
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center flex-shrink-0 border border-purple-200">
+              <Headphones size={18} />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-slate-900 font-['Outfit']">Call to Book 24x7</h4>
+              <p className="text-[11px] text-slate-500 font-medium">+91 91212 91212</p>
+            </div>
           </div>
+
         </div>
 
       </div>

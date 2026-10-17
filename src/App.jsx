@@ -13,6 +13,7 @@ import BookingModal from './components/BookingModal';
 export default function App() {
   const [activeBooking, setActiveBooking] = useState(null);
   const [selectedRoute, setSelectedRoute] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const scrollToBook = () => {
     const el = document.getElementById('book-section');
@@ -23,6 +24,11 @@ export default function App() {
 
   const handleStartBooking = (bookingData) => {
     setActiveBooking(bookingData);
+  };
+
+  const handleSelectCategory = (category) => {
+    setSelectedCategory(category);
+    scrollToBook();
   };
 
   const handleSelectVehicleFromFleet = (vehicleId) => {
@@ -46,10 +52,13 @@ export default function App() {
         <Hero 
           onStartBooking={handleStartBooking}
           selectedPreRoute={selectedRoute}
+          selectedPreCategory={selectedCategory}
         />
 
         {/* 3 Ways to Ride: Car, Bike & Auto Showcase with Hitec City visual */}
-        <HyderabadTrioBanner />
+        <HyderabadTrioBanner 
+          onSelectCategory={handleSelectCategory}
+        />
 
         {/* Vehicle Fleet: Car, Bike, Auto Showcase with realistic photos */}
         <VehicleFleet 

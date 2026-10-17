@@ -18,7 +18,7 @@ import {
   MapPin
 } from 'lucide-react';
 
-export default function Hero({ onStartBooking, selectedPreRoute }) {
+export default function Hero({ onStartBooking, selectedPreRoute, selectedPreCategory }) {
   const [vehicleCategory, setVehicleCategory] = useState('car'); // 'car' | 'bike' | 'auto'
   const [rideType, setRideType] = useState('city');
   const [pickup, setPickup] = useState('Hitec City (Cyber Towers / Mindspace)');
@@ -32,6 +32,13 @@ export default function Hero({ onStartBooking, selectedPreRoute }) {
       setDrop(selectedPreRoute.to);
     }
   }, [selectedPreRoute]);
+
+  // React to pre-selected category (car, bike, auto)
+  useEffect(() => {
+    if (selectedPreCategory) {
+      handleCategorySelect(selectedPreCategory);
+    }
+  }, [selectedPreCategory]);
 
   const handleCategorySelect = (category) => {
     setVehicleCategory(category);
