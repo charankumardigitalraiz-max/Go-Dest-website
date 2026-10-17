@@ -10,17 +10,23 @@ import {
   Zap, 
   MapPin, 
   PhoneCall, 
-  Building2, 
-  Landmark 
+  Activity, 
+  Navigation, 
+  Radio, 
+  Gauge, 
+  Users, 
+  Briefcase,
+  Check
 } from 'lucide-react';
 import { AutoRickshawIcon } from './VehicleIcon';
 
 export default function HyderabadTrioBanner({ onSelectCategory }) {
-  const [activeHub, setActiveHub] = useState('hitec'); // 'hitec' | 'charminar'
+  const [activeMode, setActiveMode] = useState('trio'); // 'trio' | 'bike' | 'auto' | 'car'
 
   const handleBook = (category) => {
+    const targetCat = category === 'trio' ? 'car' : category;
     if (onSelectCategory) {
-      onSelectCategory(category);
+      onSelectCategory(targetCat);
     } else {
       const el = document.getElementById('book-section');
       if (el) {
@@ -29,260 +35,454 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
     }
   };
 
-  const hubData = {
-    hitec: {
-      tag: 'Cyberabad IT Corridor',
-      title: 'Connecting Cyber Towers, Madhapur & Gachibowli',
-      desc: 'Beat peak tech rush hours with rapid bike taxis, metered autos, and chilled AC cabs stationed at every major IT park.',
+  const modeContent = {
+    trio: {
+      id: 'trio',
+      category: 'car',
+      name: 'All 3 Modes in One App',
+      badge: 'Hyderabad Unified Network',
+      tagline: 'Bike, Auto & AC Cabs at Your Fingertips',
       image: '/images/godest_hitec_city_mobility_trio_a.png',
-      location: 'HITEC City • Cyber Towers • Mindspace • Financial District',
-      stat: '3,800+ Active Captains'
+      fareLabel: 'Starts ₹25 to ₹89',
+      fareSub: 'Zero surge on all categories',
+      eta: '2-4 Mins Pickup',
+      capacity: '1 to 6 Seats',
+      luggage: 'Backpacks to Flight Bags',
+      speed: 'Instant Multi-Modal Dispatch',
+      sampleRoute: {
+        from: 'Cyber Towers (Hitec City)',
+        to: 'RGIA Airport / Charminar',
+        estTime: 'Quick Dispatch',
+        cost: 'Transparent Meter & Fixed Rates'
+      },
+      highlights: [
+        'Over 3,840 verified captains active across Hyderabad',
+        'Automatic smart dispatch to nearest available vehicle',
+        'Live police-integrated SOS and GPS ride tracking'
+      ]
     },
-    charminar: {
-      tag: 'Heritage & Old City Corridor',
-      title: 'Connecting Charminar, Secunderabad & Airport',
-      desc: 'Seamless travel from historic monuments and bazaar lanes to Rajiv Gandhi International Airport with zero surge pricing.',
-      image: '/images/godest_charminar_taxi_hero_a.png',
-      location: 'Charminar • Secunderabad • Begumpet • RGIA Airport',
-      stat: '100% Digital Metering'
+    bike: {
+      id: 'bike',
+      category: 'bike',
+      name: 'GODest Moto (Bike Taxi)',
+      badge: 'Fastest in Peak Traffic',
+      tagline: 'Beat Cyberabad Bottlenecks Solo',
+      image: '/images/godest_hitec_city_mobility_trio_b.png',
+      fareLabel: 'Starts ₹25',
+      fareSub: '₹7 / km • Zero rain surge',
+      eta: '2 Mins Pickup',
+      capacity: '1 Rider',
+      luggage: 'Backpack Friendly',
+      speed: 'Fastest Solo Commute',
+      sampleRoute: {
+        from: 'Cyber Towers',
+        to: 'Mindspace / Inorbit Mall',
+        estTime: '6 mins (vs 22m cab)',
+        cost: '₹28 fixed'
+      },
+      highlights: [
+        'Free sanitized safety helmet provided with every ride',
+        'Zips past Gachibowli, Madhapur & Jubilee Hills rush hours',
+        'Most economical and rapid daily commute option'
+      ]
+    },
+    auto: {
+      id: 'auto',
+      category: 'auto',
+      name: 'GODest Auto (Metered Rickshaw)',
+      badge: 'Hyderabad Daily Favorite',
+      tagline: 'Zero Haggling • 100% Digital Meter',
+      image: '/images/godest_auto_rickshaw_product_a.png',
+      fareLabel: 'Starts ₹35',
+      fareSub: 'Official RTA Digital Meter',
+      eta: '3 Mins Pickup',
+      capacity: 'Up to 3 Riders',
+      luggage: 'Shopping Bags & Parcels',
+      speed: 'Direct Doorstep Pickup',
+      sampleRoute: {
+        from: 'Secunderabad Station',
+        to: 'Begumpet / Ameerpet',
+        estTime: '12 mins',
+        cost: '₹55 by meter'
+      },
+      highlights: [
+        'Eliminates driver refusals and street fare bargaining',
+        'Strict digital meter pricing matched directly to government tariffs',
+        'Spacious comfortable cabin for family errands and market trips'
+      ]
+    },
+    car: {
+      id: 'car',
+      category: 'car',
+      name: 'GODest Prime Cabs & EV SUV',
+      badge: 'Chilled AC & Airport Fleet',
+      tagline: 'Maximum Comfort • Zero Cancellations',
+      image: '/images/godest_electric_suv_studio_a.png',
+      fareLabel: 'Starts ₹89',
+      fareSub: 'Fixed Airport Rates Available',
+      eta: '4 Mins Pickup',
+      capacity: '4 to 6 Seats',
+      luggage: 'Large Suitcase Boot',
+      speed: 'Smooth Highway Cruise',
+      sampleRoute: {
+        from: 'Hitec City (Mindspace)',
+        to: 'RGIA Shamshabad Airport',
+        estTime: '34 mins via ORR',
+        cost: '₹699 flat rate'
+      },
+      highlights: [
+        'Guaranteed 100% chilled AC operation with zero surcharges',
+        'Zero driver cancellation guarantee for booked scheduled rides',
+        'Silent electric vehicles & premium sedans with huge boot space'
+      ]
     }
   };
 
-  const currentHub = hubData[activeHub];
+  const current = modeContent[activeMode];
 
   return (
-    <section className="py-10 sm:py-14 bg-gradient-to-b from-white via-slate-50/70 to-white border-b border-slate-200" id="trio-section">
+    <section className="py-10 sm:py-14 bg-[#F8FAFC] border-b border-slate-200" id="trio-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Banner Card Container */}
-        <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden">
-          
-          {/* Banner Top Header */}
-          <div className="p-6 sm:p-8 border-b border-slate-100 flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-2 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-300 text-xs font-bold uppercase tracking-wider">
-                <Sparkles size={13} className="text-[#F5B800]" />
-                <span>HYDERABAD'S 3-IN-1 MOBILITY NETWORK</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-['Outfit'] text-slate-900 tracking-tight leading-tight">
-                Ride Safe with GODest • Move to Destination
-              </h2>
-
-              <p className="text-slate-600 text-xs sm:text-sm font-medium">
-                Car Cabs, Bike Taxi & Metered Auto Rickshaw — all in one single app with zero surge pricing.
-              </p>
-            </div>
-
-            {/* Hub Switcher Toggle */}
-            <div className="flex items-center gap-1.5 p-1.5 bg-slate-100 rounded-2xl self-start md:self-auto flex-shrink-0">
-              <button
-                onClick={() => setActiveHub('hitec')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeHub === 'hitec'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-slate-700 hover:text-blue-700'
-                }`}
-              >
-                <Building2 size={14} />
-                <span>Cyber Towers & IT Hub</span>
-              </button>
-
-              <button
-                onClick={() => setActiveHub('charminar')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeHub === 'charminar'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-slate-700 hover:text-blue-700'
-                }`}
-              >
-                <Landmark size={14} />
-                <span>Charminar & Heritage Hub</span>
-              </button>
-            </div>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-8 space-y-2.5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300 text-xs font-bold uppercase tracking-wider shadow-xs">
+            <Sparkles size={13} className="text-[#F5B800]" />
+            <span>NEXT-GEN HYDERABAD MOBILITY</span>
           </div>
 
-          {/* Panoramic Visual Stage */}
-          <div className="relative h-72 sm:h-96 w-full overflow-hidden bg-slate-100 group">
-            <img 
-              src={currentHub.image} 
-              alt={currentHub.title}
-              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
-            />
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-['Outfit'] text-slate-900 tracking-tight leading-tight">
+            The Smartest Way to Move Across <span className="text-blue-600">Hyderabad</span>
+          </h2>
+
+          <p className="text-slate-600 text-xs sm:text-sm font-medium max-w-2xl mx-auto">
+            Switch effortlessly between Bike Taxi, Metered Auto, and AC Cabs. Real-time telemetry, zero surge pricing, and 100% verified captain safety across all corridors.
+          </p>
+        </div>
+
+        {/* Bento Grid Architecture */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          
+          {/* MAIN STAGE BENTO (8 Cols) */}
+          <div className="lg:col-span-8 bg-white rounded-3xl border border-slate-200/90 shadow-lg p-5 sm:p-7 flex flex-col justify-between space-y-5">
             
-            {/* Subtle Gradient Framing */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-slate-900/10 pointer-events-none"></div>
+            {/* Top Interactive Mode Pills */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+              <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 rounded-2xl">
+                <button
+                  onClick={() => setActiveMode('trio')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    activeMode === 'trio'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-700 hover:text-blue-700'
+                  }`}
+                >
+                  <Sparkles size={13} />
+                  <span>All 3 Modes</span>
+                </button>
 
-            {/* Floating Top Left Pill */}
-            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>{currentHub.stat}</span>
+                <button
+                  onClick={() => setActiveMode('bike')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    activeMode === 'bike'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-700 hover:text-blue-700'
+                  }`}
+                >
+                  <Bike size={14} />
+                  <span>Bike Moto</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveMode('auto')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    activeMode === 'auto'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-700 hover:text-blue-700'
+                  }`}
+                >
+                  <AutoRickshawIcon size={14} />
+                  <span>Metered Auto</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveMode('car')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    activeMode === 'car'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-700 hover:text-blue-700'
+                  }`}
+                >
+                  <Car size={14} />
+                  <span>Prime AC Cabs</span>
+                </button>
+              </div>
+
+              <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full shadow-xs">
+                {current.badge}
+              </span>
             </div>
 
-            {/* Floating Top Right Pill */}
-            <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1.5">
-              <ShieldCheck size={14} className="text-emerald-600" />
-              <span>Zero Surge Guaranteed</span>
+            {/* Dynamic Visual Stage with Glassmorphic Telemetry HUD */}
+            <div className="relative h-64 sm:h-80 w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 group">
+              <img 
+                src={current.image} 
+                alt={current.name}
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-black/20 pointer-events-none"></div>
+
+              {/* HUD Floating Pill: Live ETA */}
+              <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-md border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>{current.eta}</span>
+              </div>
+
+              {/* HUD Floating Pill: Tariff Rate */}
+              <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-md border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1.5">
+                <Zap size={13} className="text-[#F5B800]" />
+                <span>{current.fareLabel}</span>
+              </div>
+
+              {/* HUD Bottom Bar: Route Simulation */}
+              <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md p-3 rounded-xl shadow-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2 text-slate-800">
+                  <Navigation size={14} className="text-blue-600 flex-shrink-0" />
+                  <span className="font-bold">{current.sampleRoute.from}</span>
+                  <span className="text-slate-400">➔</span>
+                  <span className="font-semibold text-slate-700">{current.sampleRoute.to}</span>
+                </div>
+
+                <div className="flex items-center gap-2 text-slate-600 font-medium">
+                  <span className="text-blue-700 font-bold">{current.sampleRoute.estTime}</span>
+                  <span>•</span>
+                  <span className="text-emerald-700 font-bold">{current.sampleRoute.cost}</span>
+                </div>
+              </div>
             </div>
 
-            {/* Bottom Photo Overlay Information */}
-            <div className="absolute bottom-4 left-4 right-4 text-white flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-              <div className="max-w-xl drop-shadow-md">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300">
-                  {currentHub.tag}
+            {/* Quick Specs & Booking Action */}
+            <div className="space-y-4">
+              
+              {/* Telemetry Spec Badges */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <div className="flex items-center justify-center gap-1 text-[11px] font-semibold text-slate-500 mb-0.5">
+                    <Users size={12} className="text-blue-600" />
+                    <span>Seating</span>
+                  </div>
+                  <span className="text-xs font-bold text-slate-900 font-['Outfit']">{current.capacity}</span>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <div className="flex items-center justify-center gap-1 text-[11px] font-semibold text-slate-500 mb-0.5">
+                    <Briefcase size={12} className="text-amber-600" />
+                    <span>Luggage</span>
+                  </div>
+                  <span className="text-xs font-bold text-slate-900 font-['Outfit']">{current.luggage}</span>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <div className="flex items-center justify-center gap-1 text-[11px] font-semibold text-slate-500 mb-0.5">
+                    <Gauge size={12} className="text-emerald-600" />
+                    <span>Speed Advantage</span>
+                  </div>
+                  <span className="text-xs font-bold text-slate-900 font-['Outfit']">{current.speed}</span>
+                </div>
+              </div>
+
+              {/* Highlights */}
+              <div className="space-y-1.5 pt-1">
+                {current.highlights.map((h, i) => (
+                  <div key={i} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
+                    <CheckCircle2 size={13} className="text-emerald-600 flex-shrink-0" />
+                    <span>{h}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Main Booking Trigger */}
+              <button
+                onClick={() => handleBook(current.category)}
+                className="w-full flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
+              >
+                <span>Book {current.name} on GODest</span>
+                <ArrowRight size={16} />
+              </button>
+
+            </div>
+
+          </div>
+
+          {/* RIGHT TELEMETRY BENTO WIDGETS (4 Cols) */}
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
+            
+            {/* WIDGET 1: Live Dispatch Radar */}
+            <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-5 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                  </span>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">Live Dispatch Radar</h4>
+                </div>
+                <span className="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
+                  Active 24x7
                 </span>
-                <h3 className="text-lg sm:text-xl font-bold font-['Outfit'] text-white">
-                  {currentHub.title}
-                </h3>
-                <p className="text-xs text-slate-200 font-medium hidden sm:block mt-0.5">
-                  {currentHub.location}
+              </div>
+
+              <div>
+                <span className="text-3xl font-bold font-['Outfit'] text-slate-900 block leading-none">
+                  3,842
+                </span>
+                <p className="text-xs text-slate-500 font-medium mt-1">
+                  Verified Captains patrolling Hyderabad corridors right now
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-200 text-slate-900 text-xs font-bold shadow-md self-start sm:self-auto">
-                <Clock size={13} className="text-blue-600" />
-                <span>Pickup in 2-4 Mins</span>
+              <div className="space-y-1.5 pt-2 border-t border-slate-100 text-xs text-slate-600">
+                <div className="flex justify-between font-medium">
+                  <span>Cyber Towers & Hitec City</span>
+                  <span className="font-bold text-slate-900">420+ Available</span>
+                </div>
+                <div className="flex justify-between font-medium">
+                  <span>Charminar & Old City</span>
+                  <span className="font-bold text-slate-900">310+ Available</span>
+                </div>
+                <div className="flex justify-between font-medium">
+                  <span>RGIA Airport Corridor</span>
+                  <span className="font-bold text-slate-900">180+ Available</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* 3-Pillar Mobility Bar (Car, Bike, Auto) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100 bg-white">
-            
-            {/* PILLAR 1: Bike Taxi */}
-            <div className="p-5 sm:p-6 flex flex-col justify-between space-y-3 hover:bg-slate-50/50 transition-colors">
+            {/* WIDGET 2: 1.0x Zero Surge Lock */}
+            <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
-                    <Bike size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-base font-['Outfit']">
-                      GODest Moto
-                    </h4>
-                    <p className="text-[11px] text-blue-700 font-semibold">Fast Solo Commute</p>
-                  </div>
+                <div className="flex items-center gap-2 text-amber-700">
+                  <ShieldCheck size={16} />
+                  <h4 className="text-xs font-bold uppercase tracking-wider">Tariff Guarantee</h4>
                 </div>
-
-                <div className="text-right">
-                  <span className="text-base font-bold text-slate-900 font-['Outfit'] block leading-none">
-                    Starts ₹25
-                  </span>
-                  <span className="text-[10px] text-slate-500 font-medium">₹7 / km</span>
-                </div>
+                <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  1.0x Fixed
+                </span>
               </div>
 
-              <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                Zips past Cyber Towers & Mindspace rush hour bottlenecks. Includes free sanitized helmet with rapid 2-minute dispatch.
-              </p>
+              <div>
+                <h4 className="text-base font-bold font-['Outfit'] text-slate-900">
+                  Strict Zero Surge Pricing
+                </h4>
+                <p className="text-xs text-slate-600 font-medium mt-1 leading-relaxed">
+                  Heavy rain, office rush hour, or festival rush — your price per kilometer remains locked to honest meter rates.
+                </p>
+              </div>
 
-              <button
-                onClick={() => handleBook('bike')}
-                className="w-full flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-2.5 px-3 rounded-xl text-xs shadow-xs hover:shadow-sm transition-all cursor-pointer"
-              >
-                <span>Book Bike Taxi</span>
-                <ArrowRight size={14} />
-              </button>
+              <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-950 font-semibold flex items-center gap-2">
+                <Zap size={14} className="text-amber-600 flex-shrink-0" />
+                <span>Save 25% to 40% compared to surge pricing apps</span>
+              </div>
             </div>
 
-            {/* PILLAR 2: Auto Rickshaw */}
-            <div className="p-5 sm:p-6 flex flex-col justify-between space-y-3 bg-amber-50/30 hover:bg-amber-50/50 transition-colors">
+            {/* WIDGET 3: 24x7 Direct Phone Dispatch */}
+            <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center border border-amber-200">
-                    <AutoRickshawIcon size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-base font-['Outfit']">
-                      GODest Auto
-                    </h4>
-                    <p className="text-[11px] text-amber-800 font-semibold">Metered 3-Seater</p>
-                  </div>
+                <div className="flex items-center gap-2 text-blue-700">
+                  <PhoneCall size={16} />
+                  <h4 className="text-xs font-bold uppercase tracking-wider">Direct Phone Booking</h4>
                 </div>
-
-                <div className="text-right">
-                  <span className="text-base font-bold text-slate-900 font-['Outfit'] block leading-none">
-                    Starts ₹35
-                  </span>
-                  <span className="text-[10px] text-amber-800 font-medium">Digital Meter</span>
-                </div>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               </div>
 
-              <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                Zero street haggling, zero driver refusals. Strict digital meter fares with comfortable seating for up to 3 passengers.
-              </p>
-
-              <button
-                onClick={() => handleBook('auto')}
-                className="w-full flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-2.5 px-3 rounded-xl text-xs shadow-xs hover:shadow-sm transition-all cursor-pointer"
-              >
-                <span>Book Metered Auto</span>
-                <ArrowRight size={14} />
-              </button>
-            </div>
-
-            {/* PILLAR 3: AC Cabs */}
-            <div className="p-5 sm:p-6 flex flex-col justify-between space-y-3 hover:bg-slate-50/50 transition-colors">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
-                    <Car size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-base font-['Outfit']">
-                      GODest Prime Cabs
-                    </h4>
-                    <p className="text-[11px] text-blue-700 font-semibold">Electric SUV & Sedans</p>
-                  </div>
-                </div>
-
-                <div className="text-right">
-                  <span className="text-base font-bold text-slate-900 font-['Outfit'] block leading-none">
-                    Starts ₹89
-                  </span>
-                  <span className="text-[10px] text-slate-500 font-medium">Large Boot</span>
-                </div>
+              <div>
+                <span className="text-xs text-slate-500 font-medium block">Hyderabad Control Room</span>
+                <a
+                  href="tel:+919121291212"
+                  className="text-lg font-bold font-['Outfit'] text-blue-700 hover:text-blue-800 transition-colors block"
+                >
+                  +91 91212 91212
+                </a>
               </div>
 
-              <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                100% chilled AC guaranteed with spacious trunks for airport suitcases and zero driver cancellation guarantee.
+              <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
+                Need immediate ride assistance or prefer voice booking? Our local Hyderabad operators are available 24 hours every day.
               </p>
-
-              <button
-                onClick={() => handleBook('car')}
-                className="w-full flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-2.5 px-3 rounded-xl text-xs shadow-xs hover:shadow-sm transition-all cursor-pointer"
-              >
-                <span>Book AC Cab</span>
-                <ArrowRight size={14} />
-              </button>
             </div>
 
           </div>
 
-          {/* Bottom Trust & Contact Ribbon */}
-          <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-            <div className="flex flex-wrap items-center gap-3 sm:gap-6 font-semibold text-slate-700">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-emerald-600" />
-                <span>Zero Surge Pricing</span>
+        </div>
+
+        {/* BOTTOM TACTILE MODE CARDS (3 Columns) */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          
+          {/* Card 1: Moto */}
+          <div
+            onClick={() => setActiveMode('bike')}
+            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${
+              activeMode === 'bike'
+                ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
+                : 'border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                <Bike size={20} />
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-emerald-600" />
-                <span>100% Digital Meter</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-emerald-600" />
-                <span>Verified Captains</span>
+              <div>
+                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">GODest Moto</h4>
+                <p className="text-[11px] text-slate-500 font-medium">Solo Commute • Starts ₹25</p>
               </div>
             </div>
+            <span className="text-xs font-bold text-blue-600 font-['Outfit'] flex items-center gap-1">
+              Select <ArrowRight size={12} />
+            </span>
+          </div>
 
-            <a
-              href="tel:+919121291212"
-              className="flex items-center gap-2 text-slate-800 hover:text-blue-700 font-bold"
-            >
-              <PhoneCall size={14} className="text-blue-600" />
-              <span>Call to Book: +91 91212 91212</span>
-            </a>
+          {/* Card 2: Auto */}
+          <div
+            onClick={() => setActiveMode('auto')}
+            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${
+              activeMode === 'auto'
+                ? 'border-amber-500 ring-2 ring-amber-400/20 bg-amber-50/30'
+                : 'border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
+                <AutoRickshawIcon size={20} />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">GODest Auto</h4>
+                <p className="text-[11px] text-slate-500 font-medium">Digital Meter • Starts ₹35</p>
+              </div>
+            </div>
+            <span className="text-xs font-bold text-amber-800 font-['Outfit'] flex items-center gap-1">
+              Select <ArrowRight size={12} />
+            </span>
+          </div>
+
+          {/* Card 3: Cab */}
+          <div
+            onClick={() => setActiveMode('car')}
+            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${
+              activeMode === 'car'
+                ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
+                : 'border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                <Car size={20} />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">Prime AC Cabs</h4>
+                <p className="text-[11px] text-slate-500 font-medium">Electric SUV • Starts ₹89</p>
+              </div>
+            </div>
+            <span className="text-xs font-bold text-blue-600 font-['Outfit'] flex items-center gap-1">
+              Select <ArrowRight size={12} />
+            </span>
           </div>
 
         </div>
