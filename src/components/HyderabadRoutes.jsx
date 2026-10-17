@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { popularRoutes } from '../data/cabData';
-import { 
-  Clock, 
-  ArrowRight, 
-  MapPin, 
-  Car, 
-  Bike, 
-  Plane, 
-  Building2, 
-  Train, 
-  Landmark, 
-  Navigation, 
-  ShieldCheck, 
-  Zap, 
-  CheckCircle2, 
-  PhoneCall, 
+import {
+  Clock,
+  ArrowRight,
+  MapPin,
+  Car,
+  Bike,
+  Plane,
+  Building2,
+  Train,
+  Landmark,
+  Navigation,
+  ShieldCheck,
+  Zap,
+  CheckCircle2,
+  PhoneCall,
   Compass,
   Sparkles
 } from 'lucide-react';
@@ -102,7 +102,7 @@ export default function HyderabadRoutes({ onSelectRoute }) {
   return (
     <section className="py-10 sm:py-14 bg-gradient-to-b from-white via-slate-50 to-white border-t border-b border-slate-200" id="routes-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold uppercase tracking-wider shadow-xs">
@@ -122,43 +122,39 @@ export default function HyderabadRoutes({ onSelectRoute }) {
           <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
             <button
               onClick={() => setActiveFilter('all')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                activeFilter === 'all'
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${activeFilter === 'all'
                   ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-600/20'
                   : 'bg-white text-slate-700 hover:text-blue-700 border border-slate-200 hover:border-slate-300'
-              }`}
+                }`}
             >
               All Corridors ({popularRoutes.length})
             </button>
             <button
               onClick={() => setActiveFilter('airport')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                activeFilter === 'airport'
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${activeFilter === 'airport'
                   ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-600/20'
                   : 'bg-white text-slate-700 hover:text-blue-700 border border-slate-200 hover:border-slate-300'
-              }`}
+                }`}
             >
               <Plane size={13} />
               <span>Airport Express</span>
             </button>
             <button
               onClick={() => setActiveFilter('it')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                activeFilter === 'it'
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${activeFilter === 'it'
                   ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-600/20'
                   : 'bg-white text-slate-700 hover:text-blue-700 border border-slate-200 hover:border-slate-300'
-              }`}
+                }`}
             >
               <Building2 size={13} />
               <span>IT & Cyber Towers</span>
             </button>
             <button
               onClick={() => setActiveFilter('commute')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                activeFilter === 'commute'
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${activeFilter === 'commute'
                   ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-600/20'
                   : 'bg-white text-slate-700 hover:text-blue-700 border border-slate-200 hover:border-slate-300'
-              }`}
+                }`}
             >
               <Landmark size={13} />
               <span>City Heritage & Railway</span>
@@ -174,12 +170,12 @@ export default function HyderabadRoutes({ onSelectRoute }) {
             const details = modeDetails[currentMode];
 
             return (
-              <div 
+              <div
                 key={idx}
                 className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 group"
               >
                 <div>
-                  
+
                   {/* Card Header: Tag & Duration Badge */}
                   <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
                     <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-slate-100 text-slate-800 border border-slate-200 px-3 py-1 rounded-full shadow-xs">
@@ -197,7 +193,7 @@ export default function HyderabadRoutes({ onSelectRoute }) {
 
                   {/* Visual Connected Transit Waypoints */}
                   <div className="my-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2.5">
-                    
+
                     {/* Origin */}
                     <div className="flex items-start gap-3">
                       <div className="mt-1 flex flex-col items-center">
@@ -235,16 +231,15 @@ export default function HyderabadRoutes({ onSelectRoute }) {
                     </span>
 
                     <div className="grid grid-cols-3 gap-2">
-                      
+
                       {/* Bike Option */}
                       <button
                         type="button"
                         onClick={() => handleModeChange(idx, 'bike')}
-                        className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
-                          currentMode === 'bike'
+                        className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${currentMode === 'bike'
                             ? 'bg-blue-50/80 border-blue-600 shadow-xs ring-2 ring-blue-600/20'
                             : 'bg-white border-slate-200 hover:border-slate-300'
-                        }`}
+                          }`}
                       >
                         <span className="text-[11px] font-semibold text-slate-600 flex items-center justify-center gap-1 mb-0.5">
                           <Bike size={13} className="text-blue-600" />
@@ -259,11 +254,10 @@ export default function HyderabadRoutes({ onSelectRoute }) {
                       <button
                         type="button"
                         onClick={() => handleModeChange(idx, 'auto')}
-                        className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
-                          currentMode === 'auto'
+                        className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${currentMode === 'auto'
                             ? 'bg-amber-50/80 border-amber-500 shadow-xs ring-2 ring-amber-500/20'
                             : 'bg-white border-slate-200 hover:border-slate-300'
-                        }`}
+                          }`}
                       >
                         <span className="text-[11px] font-semibold text-slate-600 flex items-center justify-center gap-1 mb-0.5">
                           <AutoRickshawIcon size={13} className="text-amber-700" />
@@ -278,11 +272,10 @@ export default function HyderabadRoutes({ onSelectRoute }) {
                       <button
                         type="button"
                         onClick={() => handleModeChange(idx, 'car')}
-                        className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
-                          currentMode === 'car'
+                        className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${currentMode === 'car'
                             ? 'bg-blue-50/80 border-blue-600 shadow-xs ring-2 ring-blue-600/20'
                             : 'bg-white border-slate-200 hover:border-slate-300'
-                        }`}
+                          }`}
                       >
                         <span className="text-[11px] font-semibold text-slate-600 flex items-center justify-center gap-1 mb-0.5">
                           <Car size={13} className="text-blue-600" />
