@@ -279,7 +279,7 @@ export default function Footer({ onBookClick: _onBookClick, onOpenLegal } = {}) 
         </div>
 
         {/* Legal Policies & Compliance Bar: Rapido / Uber / Ola Benchmark */}
-        <div className="pt-8 pb-5 border-t border-slate-200/90 mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="pt-8 pb-5  mt-1 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center flex-shrink-0">
               <Scale size={14} className="text-amber-800" />
