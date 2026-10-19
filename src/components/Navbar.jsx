@@ -1,154 +1,361 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
-import { PhoneCall, ShieldCheck, Menu, X, Sparkles, Star, MapPin } from 'lucide-react';
+import {
+  PhoneCall,
+  ShieldCheck,
+  Menu,
+  X,
+  Sparkles,
+  Car,
+  Smartphone,
+  ChevronRight,
+  Zap,
+  Scale,
+  Star,
+  ArrowRight,
+  CheckCircle2
+} from 'lucide-react';
 
-export default function Navbar({ onBookClick }) {
+export default function Navbar({ onBookClick, onOpenLegal }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+
+  const navItems = [
+    {
+      id: 'fleet-section',
+      label: 'Vehicles',
+      fullLabel: 'Vehicles (Car, Bike, Auto)',
+      icon: Car
+    },
+    {
+      id: 'safety-section',
+      label: 'Safety',
+      fullLabel: 'Safety Pledge & Verified Captains',
+      icon: ShieldCheck
+    },
+    {
+      id: 'app-download-section',
+      label: 'Mobile App',
+      fullLabel: 'Download Mobile App',
+      icon: Smartphone
+    },
+    {
+      id: 'testimonials-section',
+      label: 'Reviews',
+      fullLabel: 'Rider Reviews & Ratings',
+      icon: Star
+    }
+  ];
+
+  // Accurate ScrollSpy using getBoundingClientRect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+
+      const sectionIds = ['fleet-section', 'safety-section', 'app-download-section', 'testimonials-section'];
+      let current = '';
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // Active when section top is near the navbar
+          if (rect.top <= 180 && rect.bottom >= 120) {
+            current = id;
+            break;
+          }
+        }
+      }
+
+      // Check if user is at the bottom of the page
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+        current = 'testimonials-section';
+      }
+
+      setActiveSection(current);
+    };
+
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setActiveSection(hash);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('hashchange', handleHashChange);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  const handleNavClick = (e, id) => {
+    e.preventDefault();
+    setActiveSection(id);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      window.history.pushState(null, '', `#${id}`);
+    }
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all">
-      {/* Top micro-announcement trust bar with royal blue background (no black) */}
-      <div className="bg-blue-600 text-white py-1.5 px-4 text-xs font-medium border-b border-blue-500">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          {/* Slogan badges with professional SVG icons */}
-          <div className="flex items-center flex-wrap justify-center gap-2 sm:gap-4 text-[11px] sm:text-xs">
-            <span className="flex items-center gap-1.5 text-[#F5B800] font-semibold">
-              <Star size={13} className="text-[#F5B800] fill-[#F5B800]" />
-              <span>24x7 Available</span>
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-200 ${
+        isScrolled
+          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.08)]'
+          : 'bg-white/98 backdrop-blur-sm border-b border-slate-100 shadow-none'
+      }`}
+    >
+      {/* Top Midnight Trust Bar: Sleek, high-contrast & premium */}
+      <div className="bg-[#0F172A] text-slate-300 text-[11px] sm:text-xs py-1.5 px-4 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          
+          {/* Left Trust Badges */}
+          <div className="flex items-center gap-2.5 sm:gap-3 text-slate-300 font-medium">
+            <button
+              type="button"
+              onClick={() => onOpenLegal?.('fares')}
+              className="inline-flex items-center gap-1.5 font-bold text-[#F5B800] hover:text-amber-300 transition-colors cursor-pointer"
+              title="Click to view Zero Surge Policy"
+            >
+              <Zap size={12} className="fill-[#F5B800]" />
+              <span>Zero-Surge Guaranteed</span>
+            </button>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <span className="hidden sm:inline text-slate-300">
+              Pan-India 24/7 Car, Bike & Auto Rides
             </span>
-            <span className="text-blue-300 hidden sm:inline">•</span>
-            <span className="flex items-center gap-1.5 text-blue-100">
-              <MapPin size={13} className="text-blue-200" />
-              <span>City • Airport • Outstation</span>
-            </span>
-            <span className="text-blue-300 hidden sm:inline">•</span>
-            <span className="flex items-center gap-1.5 text-emerald-200 font-medium">
-              <ShieldCheck size={13} className="text-emerald-300" />
-              <span>Safe • Reliable • Affordable</span>
+            <span className="text-slate-600 hidden md:inline">•</span>
+            <span className="hidden md:inline-flex items-center gap-1 text-emerald-400 font-semibold">
+              <CheckCircle2 size={11} className="text-emerald-400" />
+              <span>100% Police Verified</span>
             </span>
           </div>
 
-          {/* Right 24/7 Helpline */}
-          <div className="flex items-center gap-3">
+          {/* Right Support Desk & Legal Center */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            <button
+              type="button"
+              onClick={() => onOpenLegal?.('terms')}
+              className="hidden lg:inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <Scale size={11} className="text-amber-400" />
+              <span>Legal Center</span>
+            </button>
+
+            <span className="hidden lg:inline text-slate-700">|</span>
+
             <a
               href="tel:04060007000"
-              className="flex items-center gap-1.5 text-blue-100 hover:text-[#F5B800] transition-colors"
+              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition-colors"
             >
               <PhoneCall size={12} className="text-[#F5B800]" />
-              <span className="hidden md:inline">Hyderabad 24/7 Helpline:</span>
-              <strong className="text-white">040-6000-7000</strong>
+              <span className="hidden sm:inline text-slate-400">24/7 Desk:</span>
+              <strong className="text-white font-bold tracking-wide">040-6000-7000</strong>
             </a>
           </div>
+
         </div>
       </div>
 
-      {/* Main Navigation */}
+      {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-18 sm:h-20">
+          
           {/* Logo */}
-          <a href="#" className="flex-shrink-0">
+          <a
+            href="#"
+            className="flex-shrink-0 transition-opacity hover:opacity-95 py-1"
+            aria-label="GODest Home"
+          >
             <Logo size="medium" />
           </a>
 
-          {/* Desktop Nav Links (English Only) */}
-          <nav className="hidden lg:flex items-center gap-8 font-semibold text-sm text-slate-700">
-            <a href="#book-section" className="hover:text-blue-600 transition-colors flex items-center gap-1.5">
-              <span>Book Ride</span>
-              <span className="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full font-bold">Fast</span>
-            </a>
-            <a href="#fleet-section" className="hover:text-blue-600 transition-colors">
-              Car, Bike & Auto
-            </a>
-            <a href="#routes-section" className="hover:text-blue-600 transition-colors">
-              Popular Routes
-            </a>
-            <a href="#safety-section" className="hover:text-blue-600 transition-colors">
-              Safety Pledge
-            </a>
-            <a href="#app-download-section" className="hover:text-blue-600 transition-colors">
-              Download App
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-[13.5px] font-semibold">
+            {navItems.map((item) => {
+              const IconComp = item.icon;
+              const isActive = activeSection === item.id;
+
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={(e) => handleNavClick(e, item.id)}
+                  className={`relative flex items-center gap-2 px-3.5 py-2 rounded-xl transition-all duration-200 group ${
+                    isActive
+                      ? 'bg-slate-900 text-white font-bold shadow-xs'
+                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 font-semibold'
+                  }`}
+                >
+                  <IconComp
+                    size={15}
+                    className={`transition-colors ${
+                      isActive
+                        ? 'text-[#F5B800]'
+                        : 'text-slate-400 group-hover:text-slate-700'
+                    }`}
+                  />
+                  <span>{item.label}</span>
+
+                  {/* Active bottom gold glow indicator */}
+                  {isActive && (
+                    <span className="absolute -bottom-1.5 left-3 right-3 h-[2px] bg-[#F5B800] rounded-full shadow-[0_1px_6px_rgba(245,184,0,0.8)]"></span>
+                  )}
+                </a>
+              );
+            })}
+
+            {/* Quick Policy Trigger */}
+            <button
+              type="button"
+              onClick={() => onOpenLegal?.('terms')}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 transition-all font-semibold cursor-pointer group"
+            >
+              <Scale size={15} className="text-slate-400 group-hover:text-amber-600 transition-colors" />
+              <span>Policies</span>
+            </button>
+
+            {/* Drive with Us Captain Partner CTA */}
+            <a
+              href="https://wa.me/914060007000?text=Hi%20GODest,%20I%20want%20to%20register%20as%20a%20Captain"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50/70 hover:bg-amber-100/90 text-amber-950 border border-amber-300/80 transition-all duration-150 font-bold shadow-2xs group ml-1"
+            >
+              <Zap size={14} className="text-[#F5B800] fill-[#F5B800] group-hover:scale-110 transition-transform" />
+              <span>Drive with Us</span>
+              <span className="text-[10px] uppercase font-extrabold tracking-wider px-1.5 py-0.5 rounded-md bg-[#F5B800] text-slate-950 shadow-2xs">
+                Earn
+              </span>
             </a>
           </nav>
 
-          {/* Desktop Right CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
-            <div className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold">
-              <ShieldCheck size={15} className="text-blue-600" />
-              <span>Zero Surge Guarantee</span>
-            </div>
-
+          {/* Right Action Area */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Primary Book Ride Button */}
             <button
+              type="button"
               onClick={onBookClick}
-              className="flex items-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              className="flex items-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 font-extrabold px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-95 transition-all cursor-pointer group"
             >
-              <Sparkles size={16} />
-              <span>Book Now</span>
+              <Sparkles size={15} className="group-hover:rotate-12 transition-transform" />
+              <span>Book Ride</span>
+              <ArrowRight size={14} className="hidden sm:inline group-hover:translate-x-0.5 transition-transform" />
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus:outline-none cursor-pointer"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
-            aria-label="Open mobile menu"
-          >
-            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 shadow-xl animate-in slide-in-from-top">
-          <nav className="flex flex-col space-y-2 font-semibold text-slate-800 text-sm">
-            <a
-              href="#book-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors flex items-center justify-between"
+        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-4 shadow-2xl animate-in slide-in-from-top-2 duration-200">
+          
+          {/* Quick Booking Action Inside Mobile Drawer */}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onBookClick();
+              }}
+              className="flex items-center justify-center gap-1.5 bg-[#F5B800] text-slate-950 font-bold py-2.5 px-3 rounded-xl text-xs shadow-sm cursor-pointer"
             >
-              <span>Book Car, Bike or Auto</span>
-              <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">Instant</span>
-            </a>
+              <Sparkles size={14} />
+              <span>Book Ride</span>
+            </button>
+
             <a
-              href="#fleet-section"
+              href="https://wa.me/914060007000?text=Hi%20GODest,%20I%20want%20to%20register%20as%20a%20Captain"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center justify-center gap-1.5 bg-amber-50 border border-amber-300 text-amber-950 font-bold py-2.5 px-3 rounded-xl text-xs shadow-2xs"
             >
-              Vehicles Available (Car, Bike, Auto)
+              <Zap size={14} className="text-[#F5B800] fill-[#F5B800]" />
+              <span>Join as Captain</span>
             </a>
-            <a
-              href="#routes-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors"
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex flex-col space-y-1 font-medium text-slate-700 text-sm pt-1 border-t border-slate-100">
+            {navItems.map((item) => {
+              const IconComp = item.icon;
+              const isActive = activeSection === item.id;
+
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={(e) => handleNavClick(e, item.id)}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-colors ${
+                    isActive
+                      ? 'bg-slate-900 text-white font-bold shadow-xs'
+                      : 'hover:bg-slate-50 text-slate-700 hover:text-slate-950'
+                  }`}
+                >
+                  <span className="flex items-center gap-3">
+                    <IconComp size={17} className={isActive ? 'text-[#F5B800]' : 'text-slate-500'} />
+                    <span>{item.fullLabel}</span>
+                  </span>
+                  {isActive ? (
+                    <span className="text-[10px] font-bold text-slate-950 bg-[#F5B800] px-2 py-0.5 rounded-full">
+                      Active
+                    </span>
+                  ) : (
+                    <ChevronRight size={15} className="text-slate-400" />
+                  )}
+                </a>
+              );
+            })}
+
+            {/* Legal & Compliance Policies trigger */}
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenLegal?.('terms');
+              }}
+              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-slate-950 transition-colors cursor-pointer text-left"
             >
-              Popular Hyderabad Routes & Fares
-            </a>
-            <a
-              href="#safety-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors"
-            >
-              Safety Pledge & Verified Captains
-            </a>
-            <a
-              href="#app-download-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors"
-            >
-              Download Mobile App & QR
-            </a>
+              <span className="flex items-center gap-3">
+                <Scale size={17} className="text-amber-600" />
+                <span>Terms & Legal Policies</span>
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">
+                5 Policies
+              </span>
+            </button>
           </nav>
 
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onBookClick();
-            }}
-            className="w-full flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-blue-950 font-bold py-3 rounded-xl shadow-md text-sm"
-          >
-            <Sparkles size={16} />
-            <span>Book Ride Now</span>
-          </button>
+          {/* Quick Helpline Box */}
+          <div className="pt-2 border-t border-slate-100">
+            <a
+              href="tel:04060007000"
+              className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold hover:bg-slate-200 transition-colors"
+            >
+              <PhoneCall size={14} className="text-blue-600" />
+              <span>National 24/7 Helpline: 040-6000-7000</span>
+            </a>
+          </div>
+
         </div>
       )}
     </header>

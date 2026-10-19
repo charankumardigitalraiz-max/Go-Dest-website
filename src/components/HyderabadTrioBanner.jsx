@@ -40,7 +40,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
       id: 'trio',
       category: 'car',
       name: 'All 3 Modes in One App',
-      badge: 'Hyderabad Unified Network',
+      badge: 'All-India Unified Network',
       tagline: 'Bike, Auto & AC Cabs at Your Fingertips',
       image: '/images/godest_hitec_city_mobility_trio_a.png',
       fareLabel: 'Starts ₹25 to ₹89',
@@ -50,13 +50,13 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
       luggage: 'Backpacks to Flight Bags',
       speed: 'Instant Multi-Modal Dispatch',
       sampleRoute: {
-        from: 'Cyber Towers (Hitec City)',
-        to: 'RGIA Airport / Charminar',
+        from: 'Cyber Towers / Major City Centers',
+        to: 'Airport Express / Central Hubs',
         estTime: 'Quick Dispatch',
         cost: 'Transparent Meter & Fixed Rates'
       },
       highlights: [
-        'Over 3,840 verified captains active across Hyderabad',
+        'Thousands of verified captains active nationwide',
         'Automatic smart dispatch to nearest available vehicle',
         'Live police-integrated SOS and GPS ride tracking'
       ]
@@ -66,7 +66,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
       category: 'bike',
       name: 'GODest Moto (Bike Taxi)',
       badge: 'Fastest in Peak Traffic',
-      tagline: 'Beat Cyberabad Bottlenecks Solo',
+      tagline: 'Beat Dense City Bottlenecks Solo',
       image: '/images/godest_hitec_city_mobility_trio_b.png',
       fareLabel: 'Starts ₹25',
       fareSub: '₹7 / km • Zero rain surge',
@@ -75,22 +75,22 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
       luggage: 'Backpack Friendly',
       speed: 'Fastest Solo Commute',
       sampleRoute: {
-        from: 'Cyber Towers',
-        to: 'Mindspace / Inorbit Mall',
-        estTime: '6 mins (vs 22m cab)',
-        cost: '₹28 fixed'
+        from: 'Major Tech Hubs & IT Parks',
+        to: 'City Centers & Metro Stations',
+        estTime: '8-12 mins',
+        cost: 'From ₹25'
       },
       highlights: [
         'Free sanitized safety helmet provided with every ride',
-        'Zips past Gachibowli, Madhapur & Jubilee Hills rush hours',
-        'Most economical and rapid daily commute option'
+        'Zips past dense morning & evening peak rush hours',
+        'Most economical and rapid daily solo commute option'
       ]
     },
     auto: {
       id: 'auto',
       category: 'auto',
       name: 'GODest Auto (Metered Rickshaw)',
-      badge: 'Hyderabad Daily Favorite',
+      badge: 'Pan-India Daily Favorite',
       tagline: 'Zero Haggling • 100% Digital Meter',
       image: '/images/godest_auto_rickshaw_product_a.png',
       fareLabel: 'Starts ₹35',
@@ -100,10 +100,10 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
       luggage: 'Shopping Bags & Parcels',
       speed: 'Direct Doorstep Pickup',
       sampleRoute: {
-        from: 'Secunderabad Station',
-        to: 'Begumpet / Ameerpet',
-        estTime: '12 mins',
-        cost: '₹55 by meter'
+        from: 'Central Railway & Metro Stations',
+        to: 'Local Markets & Residential Hubs',
+        estTime: 'Quick Dispatch',
+        cost: 'Transparent Digital Meter'
       },
       highlights: [
         'Eliminates driver refusals and street fare bargaining',
@@ -141,21 +141,24 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
   const current = modeContent[activeMode];
 
   return (
-    <section className="py-10 sm:py-14 bg-[#F8FAFC] border-b border-slate-200" id="trio-section">
+    <section className="py-10 sm:py-14 bg-[#F8FAFC] border-b border-slate-200 scroll-mt-20" id="fleet-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 space-y-2.5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300 text-xs font-bold uppercase tracking-wider shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50/90 text-amber-950 border border-amber-200/90 text-[11px] font-semibold tracking-[0.08em] uppercase shadow-2xs">
             <Sparkles size={13} className="text-[#F5B800]" />
-            <span>NEXT-GEN HYDERABAD MOBILITY</span>
+            <span>NEXT-GEN MOBILITY ACROSS INDIA</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-['Outfit'] text-slate-900 tracking-tight leading-tight">
-            The Smartest Way to Move Across <span className="text-blue-600">Hyderabad</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-normal font-['Outfit'] text-slate-800 tracking-[-0.03em] leading-[1.2]">
+            The Smartest Way to Move Across{' '}
+            <span className="font-bold bg-gradient-to-r from-amber-600 via-[#F5B800] to-amber-500 bg-clip-text text-transparent">
+              India
+            </span>
           </h2>
 
-          <p className="text-slate-600 text-xs sm:text-sm font-medium max-w-2xl mx-auto">
+          <p className="text-slate-600 text-xs sm:text-sm font-normal max-w-2xl mx-auto leading-relaxed">
             Switch effortlessly between Bike Taxi, Metered Auto, and AC Cabs. Real-time telemetry, zero surge pricing, and 100% verified captain safety across all corridors.
           </p>
         </div>
@@ -330,25 +333,25 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
               <div>
                 <span className="text-3xl font-bold font-['Outfit'] text-slate-900 block leading-none">
-                  3,842
+                  12,500+
                 </span>
                 <p className="text-xs text-slate-500 font-medium mt-1">
-                  Verified Captains patrolling Hyderabad corridors right now
+                  Verified Captains patrolling active city corridors right now
                 </p>
               </div>
 
               <div className="space-y-1.5 pt-2 border-t border-slate-100 text-xs text-slate-600">
                 <div className="flex justify-between font-medium">
-                  <span>Cyber Towers & Hitec City</span>
-                  <span className="font-bold text-slate-900">420+ Available</span>
+                  <span>Tech Parks & Commercial Hubs</span>
+                  <span className="font-bold text-slate-900">1,420+ Available</span>
                 </div>
                 <div className="flex justify-between font-medium">
-                  <span>Charminar & Old City</span>
-                  <span className="font-bold text-slate-900">310+ Available</span>
+                  <span>Central Railway & Metro Stations</span>
+                  <span className="font-bold text-slate-900">980+ Available</span>
                 </div>
                 <div className="flex justify-between font-medium">
-                  <span>RGIA Airport Corridor</span>
-                  <span className="font-bold text-slate-900">180+ Available</span>
+                  <span>Major Airport Corridors</span>
+                  <span className="font-bold text-slate-900">640+ Available</span>
                 </div>
               </div>
             </div>
@@ -391,7 +394,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 font-medium block">Hyderabad Control Room</span>
+                <span className="text-xs text-slate-500 font-medium block">Pan-India 24/7 Control Room</span>
                 <a
                   href="tel:+919121291212"
                   className="text-lg font-bold font-['Outfit'] text-blue-700 hover:text-blue-800 transition-colors block"
@@ -401,7 +404,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
               </div>
 
               <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
-                Need immediate ride assistance or prefer voice booking? Our local Hyderabad operators are available 24 hours every day.
+                Need immediate ride assistance or prefer voice booking? Our dedicated 24/7 operators are available nationwide round the clock.
               </p>
             </div>
 

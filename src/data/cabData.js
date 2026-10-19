@@ -23,7 +23,7 @@ export const allVehicles = [
     category: 'bike',
     categoryName: 'Bike Taxi',
     name: 'GODest Moto Bike',
-    subtitle: 'Beat Hyderabad traffic • Solo ride',
+    subtitle: 'Beat city traffic • Solo ride',
     example: 'Pulsar, Splendor, Activa',
     seats: 1,
     bags: 1,
@@ -188,10 +188,10 @@ export const driverTestimonies = [
   },
   {
     name: 'Priyanka Sharma',
-    role: 'Doctor, Banjara Hills',
+    role: 'Doctor, Medical Center',
     rideType: 'Auto & Prime Cab',
     rating: 5,
-    comment: 'Zero bargaining with GODest Auto is such a relief in Hyderabad! Plus the yellow and white SUV is exceptionally clean, quiet and safe for midnight rides.'
+    comment: 'Zero bargaining with GODest Auto is such a relief! Plus the yellow and white SUV is exceptionally clean, quiet and safe for midnight rides.'
   },
   {
     name: 'Mohammed Kareem',

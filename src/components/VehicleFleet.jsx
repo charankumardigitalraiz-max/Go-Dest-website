@@ -22,7 +22,10 @@ export default function VehicleFleet({ onSelectVehicle }) {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-bold font-['Outfit'] text-slate-900 tracking-tight">
-            Car, Bike & Auto for Every Hyderabad Journey
+            Car, Bike & Auto for Every{" "}
+            <span className="bg-gradient-to-r from-amber-600 via-[#F5B800] to-yellow-500 bg-clip-text text-transparent">
+              Journey Across India
+            </span>
           </h2>
 
           <p className="text-base text-slate-600">
