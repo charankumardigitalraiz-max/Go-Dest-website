@@ -133,7 +133,7 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
           <div className="flex items-center gap-2.5 sm:gap-3 text-slate-300 font-medium">
             <button
               type="button"
-              onClick={() => onOpenLegal?.('fares')}
+              // onClick={() => onOpenLegal?.('fares')}
               className="inline-flex items-center gap-1.5 font-bold text-[#F5B800] hover:text-amber-300 transition-colors cursor-pointer"
               title="Click to view Zero Surge Policy"
             >
