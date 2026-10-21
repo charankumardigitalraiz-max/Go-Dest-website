@@ -226,7 +226,7 @@ export default function AppDownloadModal({
             <div className="space-y-2.5 sm:space-y-5 animate-in fade-in duration-150">
 
               {/* 3 Supported Ride Modes Visual Strip */}
-              <div className="grid grid-cols-3 gap-1 sm:gap-2.5">
+              {/* <div className="grid grid-cols-3 gap-1 sm:gap-2.5">
                 <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-2xl bg-blue-50/80 border border-blue-200/70 flex items-center gap-1 sm:gap-2.5 shadow-2xs">
                   <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-xl bg-blue-600 text-white flex items-center justify-center flex-shrink-0 shadow-2xs">
                     <Bike size={13} className="sm:w-[17px] sm:h-[17px]" />
@@ -256,7 +256,7 @@ export default function AppDownloadModal({
                     <span className="text-[8.5px] sm:text-[10px] text-slate-700 font-bold block truncate">From ₹89</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Download Buttons & QR Code Split Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-stretch">
@@ -383,7 +383,7 @@ export default function AppDownloadModal({
             <div className="space-y-2.5 sm:space-y-5 animate-in fade-in duration-150">
 
               {/* Partner Perks Highlight Cards */}
-              <div className="grid grid-cols-3 gap-1 sm:gap-2.5">
+              {/* <div className="grid grid-cols-3 gap-1 sm:gap-2.5">
                 <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-2xl bg-amber-50/80 border border-amber-200 flex flex-col justify-between shadow-2xs">
                   <span className="text-[8px] sm:text-[10px] font-black uppercase text-amber-800 tracking-wider truncate">Commission</span>
                   <div className="text-xs sm:text-lg font-black text-slate-900 font-['Outfit'] mt-0.5 truncate">
@@ -407,7 +407,7 @@ export default function AppDownloadModal({
                   </div>
                   <span className="text-[8px] sm:text-[10px] text-blue-800 font-medium truncate">Incentives</span>
                 </div>
-              </div>
+              </div> */}
 
               {/* Download Buttons & QR Code Split Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-stretch">
