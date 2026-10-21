@@ -210,7 +210,7 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
                   href={`#${item.id}`}
                   onClick={(e) => handleNavClick(e, item.id)}
                   className={`relative flex items-center gap-2 px-3.5 py-2 rounded-xl transition-all duration-200 group ${isActive
-                    ? 'bg-slate-900 text-white font-bold shadow-xs'
+                    ? 'bg-amber-50/70 text-amber-950 font-bold border border-amber-300/80 shadow-2xs'
                     : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 font-semibold'
                     }`}
                 >
@@ -223,9 +223,9 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
                   />
                   <span>{item.label}</span>
 
-                  {/* Active bottom gold glow indicator */}
+                  {/* Active bottom subtle indicator */}
                   {isActive && (
-                    <span className="absolute -bottom-1.5 left-3 right-3 h-[2px] bg-[#F5B800] rounded-full shadow-[0_1px_6px_rgba(245,184,0,0.8)]"></span>
+                    <span className="absolute -bottom-1.5 left-3.5 right-3.5 h-[2px] bg-[#F5B800] rounded-full shadow-[0_1px_4px_rgba(245,184,0,0.6)]"></span>
                   )}
                 </a>
               );
@@ -324,7 +324,7 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
                   href={`#${item.id}`}
                   onClick={(e) => handleNavClick(e, item.id)}
                   className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-colors ${isActive
-                    ? 'bg-slate-900 text-white font-bold shadow-xs'
+                    ? 'bg-amber-50/70 text-amber-950 border border-amber-300/80 font-bold shadow-2xs'
                     : 'hover:bg-slate-50 text-slate-700 hover:text-slate-950'
                     }`}
                 >
@@ -333,7 +333,7 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
                     <span>{item.fullLabel}</span>
                   </span>
                   {isActive ? (
-                    <span className="text-[10px] font-bold text-slate-950 bg-[#F5B800] px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-extrabold text-slate-950 bg-[#F5B800] px-2 py-0.5 rounded-full shadow-2xs">
                       Active
                     </span>
                   ) : (
