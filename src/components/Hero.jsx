@@ -83,8 +83,8 @@ export default function Hero({ onStartBooking: _onStartBooking, selectedPreRoute
         {/* Main 2-Column Balanced Hero */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
 
-          {/* LEFT: Well-Proportioned Hero Details & Services (7 Cols) */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-4 sm:space-y-5">
+          {/* LEFT: Well-Proportioned Hero Details & Services (7 Cols on lg, Bottom on Mobile) */}
+          <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-between space-y-4 sm:space-y-5">
 
             {/* Header Cluster */}
             <div className="space-y-2.5">
@@ -268,11 +268,11 @@ export default function Hero({ onStartBooking: _onStartBooking, selectedPreRoute
 
           </div>
 
-          {/* RIGHT: Perfectly Balanced Visual Showcase (5 Cols) */}
-          <div className="lg:col-span-5 bg-white rounded-3xl shadow-xl border border-slate-200/90 overflow-hidden flex flex-col justify-between">
+          {/* RIGHT: Perfectly Balanced Visual Showcase (5 Cols on lg, Top on Mobile) */}
+          <div className="order-1 lg:order-2 lg:col-span-5 bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/90 overflow-hidden flex flex-col justify-between">
 
             {/* Visual Frame with Golden Ratio Height (350px on desktop) */}
-            <div className="relative w-full h-72 sm:h-80 lg:h-[350px] overflow-hidden bg-slate-100 group flex-1">
+            <div className="relative w-full h-64 sm:h-80 lg:h-[350px] overflow-hidden bg-slate-100 group flex-1">
               <img
                 src={currentShowcase.image}
                 alt="GODest India Mobility - Taxi, Bike, and Auto"

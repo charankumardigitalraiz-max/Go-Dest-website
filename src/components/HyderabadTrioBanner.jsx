@@ -241,14 +241,14 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
           {/* MAIN STAGE BENTO (8 Cols) */}
-          <div className="lg:col-span-8 bg-white rounded-md border border-slate-200/90 shadow-lg p-5 sm:p-7 flex flex-col justify-between space-y-5">
+          <div className="lg:col-span-8 bg-white rounded-md border border-slate-200/90 shadow-lg p-3.5 sm:p-7 flex flex-col justify-between space-y-4 sm:space-y-5">
 
             {/* Top Interactive Mode Pills */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
-              <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 rounded-2xl">
+              <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-2xl overflow-x-auto no-scrollbar max-w-full flex-nowrap sm:flex-wrap">
                 <button
                   onClick={() => setActiveMode('trio')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'trio'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${activeMode === 'trio'
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'text-slate-700 hover:text-blue-700'
                     }`}
@@ -259,7 +259,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
                 <button
                   onClick={() => setActiveMode('bike')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'bike'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${activeMode === 'bike'
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'text-slate-700 hover:text-blue-700'
                     }`}
@@ -270,7 +270,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
                 <button
                   onClick={() => setActiveMode('auto')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'auto'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${activeMode === 'auto'
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'text-slate-700 hover:text-blue-700'
                     }`}
@@ -281,7 +281,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
                 <button
                   onClick={() => setActiveMode('car')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'car'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${activeMode === 'car'
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'text-slate-700 hover:text-blue-700'
                     }`}
@@ -297,40 +297,54 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
             </div>
 
             {/* Dynamic Visual Stage with Glassmorphic Telemetry HUD */}
-            <div className="relative h-64 sm:h-80 w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 group">
+            <div className="relative h-56 sm:h-80 w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 group">
               <img
                 src={current.image}
                 alt={current.name}
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-black/20 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-black/20 pointer-events-none"></div>
 
-              {/* HUD Floating Pill: Live ETA */}
-              <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-md border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-2">
+              {/* HUD Floating Pill: Live ETA (Micro pill on mobile, card on desktop) */}
+              <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 bg-slate-950/80 sm:bg-white/95 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl shadow-md border border-white/20 sm:border-slate-200 text-white sm:text-slate-900 text-[11px] sm:text-xs font-bold flex items-center gap-1.5 sm:gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>{current.eta}</span>
               </div>
 
               {/* HUD Floating Pill: Tariff Rate */}
-              <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-md border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1.5">
-                <Zap size={13} className="text-[#F5B800]" />
+              <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 bg-[#F5B800] sm:bg-white/95 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl shadow-md border border-amber-400/50 sm:border-slate-200 text-slate-950 sm:text-slate-900 text-[11px] sm:text-xs font-black sm:font-bold flex items-center gap-1 sm:gap-1.5">
+                <Zap size={12} className="text-slate-950 sm:text-[#F5B800]" />
                 <span>{current.fareLabel}</span>
               </div>
 
-              {/* HUD Bottom Bar: Route Simulation */}
-              <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md p-3 rounded-xl shadow-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-                <div className="flex items-center gap-2 text-slate-800">
+              {/* HUD Bottom Bar: Route Simulation (Floating inside image on desktop where height allows) */}
+              <div className="hidden sm:flex absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md p-3 rounded-xl shadow-lg border border-slate-200 flex-row items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2 text-slate-800 min-w-0">
                   <Navigation size={14} className="text-blue-600 flex-shrink-0" />
-                  <span className="font-bold">{current.sampleRoute.from}</span>
-                  <span className="text-slate-400">➔</span>
-                  <span className="font-semibold text-slate-700">{current.sampleRoute.to}</span>
+                  <span className="font-bold truncate">{current.sampleRoute.from}</span>
+                  <span className="text-slate-400 flex-shrink-0">➔</span>
+                  <span className="font-semibold text-slate-700 truncate">{current.sampleRoute.to}</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-slate-600 font-medium">
+                <div className="flex items-center gap-2 text-slate-600 font-medium flex-shrink-0">
                   <span className="text-blue-700 font-bold">{current.sampleRoute.estTime}</span>
                   <span>•</span>
                   <span className="text-emerald-700 font-bold">{current.sampleRoute.cost}</span>
                 </div>
+              </div>
+            </div>
+
+            {/* Mobile Route Simulation Strip (Placed directly under image so vehicle remains 100% visible) */}
+            <div className="sm:hidden -mt-1 p-2.5 rounded-xl bg-slate-50 border border-slate-200/90 flex flex-col gap-1 text-[11px] shadow-2xs">
+              <div className="flex items-center gap-1.5 text-slate-800 min-w-0">
+                <Navigation size={12} className="text-blue-600 flex-shrink-0" />
+                <span className="font-bold truncate">{current.sampleRoute.from}</span>
+                <span className="text-slate-400 flex-shrink-0">➔</span>
+                <span className="font-semibold text-slate-700 truncate">{current.sampleRoute.to}</span>
+              </div>
+              <div className="flex items-center justify-between pt-1 border-t border-slate-200/70 text-slate-600 font-medium">
+                <span className="text-blue-700 font-bold">{current.sampleRoute.estTime}</span>
+                <span className="text-emerald-700 font-bold">{current.sampleRoute.cost}</span>
               </div>
             </div>
 

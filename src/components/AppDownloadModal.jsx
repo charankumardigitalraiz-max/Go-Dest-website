@@ -96,18 +96,18 @@ export default function AppDownloadModal({
 
   const modalContent = (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5 lg:p-6 bg-slate-950/80 backdrop-blur-xl animate-in fade-in duration-200"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-2.5 sm:p-5 lg:p-6 bg-slate-950/80 backdrop-blur-xl animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl bg-white rounded-[28px] sm:rounded-[32px] shadow-2xl overflow-hidden border border-slate-200/90 animate-in zoom-in-95 duration-200 flex flex-col max-h-[92vh]"
+        className="relative w-full max-w-2xl bg-white rounded-2xl sm:rounded-[32px] shadow-2xl overflow-hidden border border-slate-200/90 animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh] sm:max-h-[92vh] my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ======================================================== */}
         {/* TOP HERO HEADER WITH DYNAMIC AMBIENT BACKDROP            */}
         {/* ======================================================== */}
         <div
-          className={`p-5 sm:p-7 relative overflow-hidden transition-all duration-300 ${activeTab === 'rider'
+          className={`p-3.5 sm:p-6 lg:p-7 relative overflow-hidden transition-all duration-300 flex-shrink-0 ${activeTab === 'rider'
             ? 'bg-gradient-to-br from-[#0B132B] via-[#1E3A8A] to-[#2563EB] text-white'
             : 'bg-gradient-to-br from-[#F5B800] via-[#EAB308] to-[#CA8A04] text-slate-950'
             }`}
@@ -123,40 +123,28 @@ export default function AppDownloadModal({
           />
 
           {/* Top Bar with Brand Badge & Close Button */}
-          <div className="relative z-10 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
+          <div className="relative z-10 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
               <Logo size="small" dark={true} />
-              {/* <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/15 backdrop-blur-sm border border-white/10">
-                <span
-                  className={`w-1.5 h-1.5 rounded-full animate-pulse ${activeTab === 'rider' ? 'bg-emerald-400' : 'bg-slate-950'
-                    }`}
-                />
-                <span
-                  className={`text-[10px] font-extrabold tracking-wider uppercase ${activeTab === 'rider' ? 'text-blue-100' : 'text-slate-950'
-                    }`}
-                >
-                  Live Dispatch
-                </span>
-              </div> */}
             </div>
 
             <button
               type="button"
               onClick={onClose}
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 ${activeTab === 'rider'
+              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 flex-shrink-0 ${activeTab === 'rider'
                 ? 'bg-white/10 hover:bg-white/25 border border-white/20 text-white'
                 : 'bg-slate-950/15 hover:bg-slate-950/25 border border-slate-950/20 text-slate-950'
                 }`}
               aria-label="Close modal"
             >
-              <X size={18} />
+              <X size={16} />
             </button>
           </div>
 
           {/* Headline & Value Proposition */}
-          <div className="relative z-10 mt-4 space-y-1.5">
+          <div className="relative z-10 mt-2 sm:mt-3.5 space-y-1">
             <h3
-              className={`text-2xl sm:text-3xl font-black font-['Outfit'] tracking-tight leading-tight ${activeTab === 'rider' ? 'text-white' : 'text-slate-950'
+              className={`text-base sm:text-2xl lg:text-3xl font-black font-['Outfit'] tracking-tight leading-snug ${activeTab === 'rider' ? 'text-white' : 'text-slate-950'
                 }`}
             >
               {activeTab === 'rider' ? (
@@ -173,7 +161,7 @@ export default function AppDownloadModal({
             </h3>
 
             <p
-              className={`text-xs sm:text-sm font-medium max-w-lg leading-relaxed ${activeTab === 'rider' ? 'text-blue-100' : 'text-slate-900/90'
+              className={`text-[11px] sm:text-xs md:text-sm font-medium max-w-lg leading-relaxed line-clamp-2 sm:line-clamp-none ${activeTab === 'rider' ? 'text-blue-100' : 'text-slate-900/90'
                 }`}
             >
               {activeTab === 'rider'
@@ -184,7 +172,7 @@ export default function AppDownloadModal({
 
           {/* Interactive Floating Mode Switcher */}
           <div
-            className={`relative z-10 mt-5 p-1 rounded-2xl grid grid-cols-2 gap-1 backdrop-blur-md transition-colors duration-200 ${activeTab === 'rider'
+            className={`relative z-10 mt-2.5 sm:mt-4 p-1 rounded-xl sm:rounded-2xl grid grid-cols-2 gap-1 backdrop-blur-md transition-colors duration-200 ${activeTab === 'rider'
               ? 'bg-black/25 border border-white/15'
               : 'bg-slate-950/20 border border-slate-950/20'
               }`}
@@ -192,33 +180,34 @@ export default function AppDownloadModal({
             <button
               type="button"
               onClick={() => setActiveTab('rider')}
-              className={`py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-2 ${activeTab === 'rider'
-                ? 'bg-[#F5B800] text-slate-950 shadow-lg ring-1 ring-amber-400/50'
+              className={`py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-2 ${activeTab === 'rider'
+                ? 'bg-[#F5B800] text-slate-950 shadow-md ring-1 ring-amber-400/50'
                 : 'text-slate-950/80 font-bold hover:text-slate-950 hover:bg-black/10'
                 }`}
             >
               <Smartphone
-                size={14}
-                className={activeTab === 'rider' ? 'text-slate-950' : 'text-slate-950'}
+                size={13}
+                className={activeTab === 'rider' ? 'text-slate-950 flex-shrink-0' : 'text-slate-950 flex-shrink-0'}
               />
-              <span>Rider App (Book Rides)</span>
+              <span className="truncate">Rider App</span>
+              <span className="hidden sm:inline font-bold opacity-80 text-[10px]">(Book Rides)</span>
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab('partner')}
-              className={`py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'partner'
-                ? 'bg-[#2563EB] text-white shadow-lg ring-1 ring-blue-700/50'
+              className={`py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5 ${activeTab === 'partner'
+                ? 'bg-[#2563EB] text-white shadow-md ring-1 ring-blue-700/50'
                 : 'text-white/80 hover:text-white hover:bg-white/10'
                 }`}
             >
               <Award
-                size={14}
-                className={activeTab === 'partner' ? 'text-[#F5B800] fill-amber-400' : 'text-amber-300 fill-amber-300'}
+                size={13}
+                className={`flex-shrink-0 ${activeTab === 'partner' ? 'text-[#F5B800] fill-amber-400' : 'text-amber-300 fill-amber-300'}`}
               />
-              <span>Partner With Us</span>
+              <span className="truncate">Captain / Partner</span>
               <span
-                className={`text-[9px] font-extrabold px-1.5 py-0.2 rounded-full ${activeTab === 'partner' ? 'bg-[#F5B800] text-slate-950' : 'bg-white/20 text-white'
+                className={`text-[8.5px] sm:text-[9px] font-extrabold px-1.5 py-0.5 rounded-full flex-shrink-0 ${activeTab === 'partner' ? 'bg-[#F5B800] text-slate-950' : 'bg-white/20 text-white'
                   }`}
               >
                 0% Comm
@@ -230,51 +219,51 @@ export default function AppDownloadModal({
         {/* ======================================================== */}
         {/* MODAL BODY (Scrollable content)                          */}
         {/* ======================================================== */}
-        <div className="p-5 sm:p-7 space-y-5 overflow-y-auto">
+        <div className="p-2.5 sm:p-6 lg:p-7 space-y-2.5 sm:space-y-5 overflow-y-auto">
 
           {/* TAB 1: RIDER APP VIEW */}
           {activeTab === 'rider' && (
-            <div className="space-y-5 animate-in fade-in duration-150">
+            <div className="space-y-2.5 sm:space-y-5 animate-in fade-in duration-150">
 
               {/* 3 Supported Ride Modes Visual Strip */}
-              <div className="grid grid-cols-3 gap-2.5">
-                <div className="p-3 rounded-2xl bg-blue-50/80 border border-blue-200/70 flex items-center gap-2.5 shadow-2xs">
-                  <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center flex-shrink-0 shadow-2xs">
-                    <Bike size={16} />
+              <div className="grid grid-cols-3 gap-1 sm:gap-2.5">
+                <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-2xl bg-blue-50/80 border border-blue-200/70 flex items-center gap-1 sm:gap-2.5 shadow-2xs">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-xl bg-blue-600 text-white flex items-center justify-center flex-shrink-0 shadow-2xs">
+                    <Bike size={13} className="sm:w-[17px] sm:h-[17px]" />
                   </div>
-                  <div>
-                    <strong className="text-xs font-black text-slate-900 block font-['Outfit']">Moto</strong>
-                    <span className="text-[10px] text-blue-800 font-bold">Starts ₹25</span>
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/70 flex items-center gap-2.5 shadow-2xs">
-                  <div className="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center flex-shrink-0 shadow-2xs">
-                    <AutoRickshawIcon size={16} />
-                  </div>
-                  <div>
-                    <strong className="text-xs font-black text-slate-900 block font-['Outfit']">Auto</strong>
-                    <span className="text-[10px] text-amber-900 font-bold">Starts ₹35</span>
+                  <div className="min-w-0">
+                    <strong className="text-[10px] sm:text-xs font-black text-slate-900 block font-['Outfit'] truncate">Moto</strong>
+                    <span className="text-[8.5px] sm:text-[10px] text-blue-800 font-bold block truncate">From ₹25</span>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-2xl bg-slate-100/80 border border-slate-200 flex items-center gap-2.5 shadow-2xs">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center flex-shrink-0 shadow-2xs">
-                    <Car size={16} />
+                <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-2xl bg-amber-50/80 border border-amber-200/70 flex items-center gap-1 sm:gap-2.5 shadow-2xs">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center flex-shrink-0 shadow-2xs">
+                    <AutoRickshawIcon size={13} className="sm:w-[17px] sm:h-[17px]" />
                   </div>
-                  <div>
-                    <strong className="text-xs font-black text-slate-900 block font-['Outfit']">AC Cabs</strong>
-                    <span className="text-[10px] text-slate-700 font-bold">Starts ₹89</span>
+                  <div className="min-w-0">
+                    <strong className="text-[10px] sm:text-xs font-black text-slate-900 block font-['Outfit'] truncate">Auto</strong>
+                    <span className="text-[8.5px] sm:text-[10px] text-amber-900 font-bold block truncate">From ₹35</span>
+                  </div>
+                </div>
+
+                <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-2xl bg-slate-100/80 border border-slate-200 flex items-center gap-1 sm:gap-2.5 shadow-2xs">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-xl bg-slate-900 text-white flex items-center justify-center flex-shrink-0 shadow-2xs">
+                    <Car size={13} className="sm:w-[17px] sm:h-[17px]" />
+                  </div>
+                  <div className="min-w-0">
+                    <strong className="text-[10px] sm:text-xs font-black text-slate-900 block font-['Outfit'] truncate">AC Cabs</strong>
+                    <span className="text-[8.5px] sm:text-[10px] text-slate-700 font-bold block truncate">From ₹89</span>
                   </div>
                 </div>
               </div>
 
               {/* Download Buttons & QR Code Split Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-stretch">
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-stretch">
 
                 {/* Left: 2 Official Store Download Buttons (7 Cols) */}
-                <div className="sm:col-span-7 flex flex-col justify-between space-y-2.5">
-                  <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 block">
+                <div className="sm:col-span-7 flex flex-col justify-between space-y-1.5 sm:space-y-2.5">
+                  <span className="text-[9.5px] sm:text-[11px] font-black uppercase tracking-wider text-slate-500 block">
                     Download for iOS & Android
                   </span>
 
@@ -283,25 +272,25 @@ export default function AppDownloadModal({
                     href={riderPlayStoreUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white p-3.5 rounded-2xl transition-all shadow-md hover:shadow-xl hover:shadow-blue-600/20 hover:-translate-y-0.5 active:scale-98 group cursor-pointer border border-blue-400/30"
+                    className="flex items-center gap-2 sm:gap-3.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white p-2 sm:p-3.5 rounded-xl sm:rounded-2xl transition-all shadow-md hover:shadow-xl hover:shadow-blue-600/20 hover:-translate-y-0.5 active:scale-98 group cursor-pointer border border-blue-400/30"
                   >
-                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
                         <path d="M3.6 1.8L13.8 12 3.6 22.2C3.2 21.8 3 21.2 3 20.4V3.6C3 2.8 3.2 2.2 3.6 1.8Z" fill="#FFFFFF" />
                         <path d="M17.2 8.6L13.8 12 3.6 1.8C4.1 1.5 4.8 1.5 5.4 1.9L17.2 8.6Z" fill="#FFC107" />
                         <path d="M17.2 15.4L5.4 22.1C4.8 22.5 4.1 22.5 3.6 22.2L13.8 12 17.2 15.4Z" fill="#FF5252" />
                         <path d="M20.8 10.6C21.6 11.1 22 11.6 22 12C22 12.4 21.6 12.9 20.8 13.4L17.2 8.6 20.8 10.6Z" fill="#4CAF50" />
                       </svg>
                     </div>
-                    <div className="text-left leading-tight flex-1">
-                      <span className="text-[10px] uppercase font-bold text-blue-100 block tracking-wider">
+                    <div className="text-left leading-tight flex-1 min-w-0">
+                      <span className="text-[8px] sm:text-[10px] uppercase font-bold text-blue-100 block tracking-wider">
                         GET IT ON
                       </span>
-                      <strong className="text-sm font-black text-white font-['Outfit'] group-hover:text-amber-300 transition-colors">
+                      <strong className="text-[11.5px] sm:text-sm font-black text-white font-['Outfit'] group-hover:text-amber-300 transition-colors block truncate">
                         Google Play Store
                       </strong>
                     </div>
-                    <ArrowRight size={16} className="text-blue-200 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    <ArrowRight size={13} className="text-blue-200 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0 sm:w-4 sm:h-4" />
                   </a>
 
                   {/* Apple App Store Button */}
@@ -309,56 +298,61 @@ export default function AppDownloadModal({
                     href={riderAppStoreUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3.5 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 p-3.5 rounded-2xl transition-all shadow-md hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-0.5 active:scale-98 group cursor-pointer border border-amber-400/40"
+                    className="flex items-center gap-2 sm:gap-3.5 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 p-2 sm:p-3.5 rounded-xl sm:rounded-2xl transition-all shadow-md hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-0.5 active:scale-98 group cursor-pointer border border-amber-400/40"
                   >
-                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-7 h-7 fill-slate-950" viewBox="0 0 24 24">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 sm:w-7 sm:h-7 fill-slate-950" viewBox="0 0 24 24">
                         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.89c.66-.82 1.11-1.96.99-3.1-.96.04-2.13.65-2.82 1.46-.61.71-1.14 1.87-1 2.98 1.08.08 2.18-.54 2.83-1.34z" />
                       </svg>
                     </div>
-                    <div className="text-left leading-tight flex-1">
-                      <span className="text-[10px] uppercase font-bold text-slate-800 block tracking-wider">
+                    <div className="text-left leading-tight flex-1 min-w-0">
+                      <span className="text-[8px] sm:text-[10px] uppercase font-bold text-slate-800 block tracking-wider">
                         DOWNLOAD ON THE
                       </span>
-                      <strong className="text-sm font-black text-slate-950 font-['Outfit'] transition-colors">
+                      <strong className="text-[11.5px] sm:text-sm font-black text-slate-950 font-['Outfit'] transition-colors block truncate">
                         Apple App Store
                       </strong>
                     </div>
-                    <ArrowRight size={16} className="text-slate-800 group-hover:text-slate-950 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight size={13} className="text-slate-800 group-hover:text-slate-950 group-hover:translate-x-1 transition-all flex-shrink-0 sm:w-4 sm:h-4" />
                   </a>
 
                   {/* Share Link Utility */}
-                  <div className="pt-1 flex items-center justify-between text-xs text-slate-500">
-                    <span className="text-[11px] font-medium">Free download • Version 3.4.1</span>
+                  <div className="pt-0.5 flex items-center justify-between text-xs text-slate-500">
+                    <span className="text-[9.5px] sm:text-[11px] font-medium">Free download • Version 3.4.1</span>
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="text-[#2563EB] hover:underline font-bold text-[11px] flex items-center gap-1 cursor-pointer"
+                      className="text-[#2563EB] hover:underline font-bold text-[9.5px] sm:text-[11px] flex items-center gap-1 cursor-pointer"
                     >
-                      {copiedLink ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
+                      {copiedLink ? <Check size={11} className="text-emerald-600" /> : <Copy size={11} />}
                       <span>{copiedLink ? 'Link Copied!' : 'Copy Download Link'}</span>
                     </button>
                   </div>
                 </div>
 
                 {/* Right: Tactile Camera QR Code Box (5 Cols) */}
-                <div className="sm:col-span-5 bg-gradient-to-b from-slate-50 to-blue-50/40 p-4 rounded-2xl border border-slate-200/90 flex flex-col items-center justify-center text-center space-y-2">
-                  <div className="relative p-2.5 bg-white rounded-2xl border border-slate-200 shadow-md">
+                <div className="sm:col-span-5 bg-gradient-to-b from-slate-50 to-blue-50/40 p-2 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/90 flex flex-row sm:flex-col items-center justify-center text-left sm:text-center gap-2.5 sm:gap-2">
+                  <div className="relative p-1 sm:p-2.5 bg-white rounded-lg sm:rounded-2xl border border-slate-200 shadow-xs flex-shrink-0">
                     {/* Viewfinder Corner Accents */}
-                    <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-[#2563EB] rounded-tl" />
-                    <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-[#2563EB] rounded-tr" />
-                    <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-[#2563EB] rounded-bl" />
-                    <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-[#2563EB] rounded-br" />
+                    <div className="absolute -top-0.5 -left-0.5 sm:-top-1 sm:-left-1 w-2 sm:w-3 h-2 sm:h-3 border-t-2 border-l-2 border-[#2563EB] rounded-tl" />
+                    <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-2 sm:w-3 h-2 sm:h-3 border-t-2 border-r-2 border-[#2563EB] rounded-tr" />
+                    <div className="absolute -bottom-0.5 -left-0.5 sm:-bottom-1 sm:-left-1 w-2 sm:w-3 h-2 sm:h-3 border-b-2 border-l-2 border-[#2563EB] rounded-bl" />
+                    <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 w-2 sm:w-3 h-2 sm:h-3 border-b-2 border-r-2 border-[#2563EB] rounded-br" />
 
-                    <QrCode size={92} className="text-slate-900" />
+                    <div className="sm:hidden">
+                      <QrCode size={40} className="text-slate-900" />
+                    </div>
+                    <div className="hidden sm:block">
+                      <QrCode size={88} className="text-slate-900" />
+                    </div>
                   </div>
 
-                  <div className="space-y-0.5">
-                    <span className="text-xs font-black text-slate-900 block font-['Outfit']">
+                  <div className="space-y-0.5 min-w-0">
+                    <span className="text-[10px] sm:text-xs font-black text-slate-900 block font-['Outfit']">
                       Scan with Phone Camera
                     </span>
-                    <p className="text-[10px] text-slate-500 leading-tight">
-                      Instantly opens your device store to install the rider app.
+                    <p className="text-[8.5px] sm:text-[10px] text-slate-500 leading-tight">
+                      Instantly opens your device store to install.
                     </p>
                   </div>
                 </div>
@@ -386,41 +380,41 @@ export default function AppDownloadModal({
 
           {/* TAB 2: PARTNER APP VIEW */}
           {activeTab === 'partner' && (
-            <div className="space-y-5 animate-in fade-in duration-150">
+            <div className="space-y-2.5 sm:space-y-5 animate-in fade-in duration-150">
 
               {/* Partner Perks Highlight Cards */}
-              <div className="grid grid-cols-3 gap-2.5">
-                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200 flex flex-col justify-between shadow-2xs">
-                  <span className="text-[10px] font-black uppercase text-amber-800 tracking-wider">Commission</span>
-                  <div className="text-base sm:text-lg font-black text-slate-900 font-['Outfit'] mt-1">
+              <div className="grid grid-cols-3 gap-1 sm:gap-2.5">
+                <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-2xl bg-amber-50/80 border border-amber-200 flex flex-col justify-between shadow-2xs">
+                  <span className="text-[8px] sm:text-[10px] font-black uppercase text-amber-800 tracking-wider truncate">Commission</span>
+                  <div className="text-xs sm:text-lg font-black text-slate-900 font-['Outfit'] mt-0.5 truncate">
                     0% Zero
                   </div>
-                  <span className="text-[10px] text-amber-900 font-medium">100% fare to you</span>
+                  <span className="text-[8px] sm:text-[10px] text-amber-900 font-medium truncate">100% fare</span>
                 </div>
 
-                <div className="p-3 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex flex-col justify-between shadow-2xs">
-                  <span className="text-[10px] font-black uppercase text-emerald-800 tracking-wider">Payout</span>
-                  <div className="text-base sm:text-lg font-black text-slate-900 font-['Outfit'] mt-1">
+                <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-2xl bg-emerald-50/80 border border-emerald-200 flex flex-col justify-between shadow-2xs">
+                  <span className="text-[8px] sm:text-[10px] font-black uppercase text-emerald-800 tracking-wider truncate">Payout</span>
+                  <div className="text-xs sm:text-lg font-black text-slate-900 font-['Outfit'] mt-0.5 truncate">
                     Instant UPI
                   </div>
-                  <span className="text-[10px] text-emerald-800 font-medium">Daily bank transfer</span>
+                  <span className="text-[8px] sm:text-[10px] text-emerald-800 font-medium truncate">Daily transfer</span>
                 </div>
 
-                <div className="p-3 rounded-2xl bg-blue-50/80 border border-blue-200 flex flex-col justify-between shadow-2xs">
-                  <span className="text-[10px] font-black uppercase text-blue-800 tracking-wider">Bonus</span>
-                  <div className="text-base sm:text-lg font-black text-slate-900 font-['Outfit'] mt-1">
+                <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-2xl bg-blue-50/80 border border-blue-200 flex flex-col justify-between shadow-2xs">
+                  <span className="text-[8px] sm:text-[10px] font-black uppercase text-blue-800 tracking-wider truncate">Bonus</span>
+                  <div className="text-xs sm:text-lg font-black text-slate-900 font-['Outfit'] mt-0.5 truncate">
                     ₹15,000
                   </div>
-                  <span className="text-[10px] text-blue-800 font-medium">Joining incentives</span>
+                  <span className="text-[8px] sm:text-[10px] text-blue-800 font-medium truncate">Incentives</span>
                 </div>
               </div>
 
               {/* Download Buttons & QR Code Split Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-stretch">
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-stretch">
 
                 {/* Left: 2 Captain Store Download Buttons (7 Cols) */}
-                <div className="sm:col-span-7 flex flex-col justify-between space-y-2.5">
-                  <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 block">
+                <div className="sm:col-span-7 flex flex-col justify-between space-y-1.5 sm:space-y-2.5">
+                  <span className="text-[9.5px] sm:text-[11px] font-black uppercase tracking-wider text-slate-500 block">
                     Download Official Captain / Driver App
                   </span>
 
@@ -429,25 +423,25 @@ export default function AppDownloadModal({
                     href={partnerPlayStoreUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white p-3.5 rounded-2xl transition-all shadow-md hover:shadow-xl hover:shadow-blue-600/20 hover:-translate-y-0.5 active:scale-98 group cursor-pointer border border-blue-400/30"
+                    className="flex items-center gap-2 sm:gap-3.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white p-2 sm:p-3.5 rounded-xl sm:rounded-2xl transition-all shadow-md hover:shadow-xl hover:shadow-blue-600/20 hover:-translate-y-0.5 active:scale-98 group cursor-pointer border border-blue-400/30"
                   >
-                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
                         <path d="M3.6 1.8L13.8 12 3.6 22.2C3.2 21.8 3 21.2 3 20.4V3.6C3 2.8 3.2 2.2 3.6 1.8Z" fill="#FFFFFF" />
                         <path d="M17.2 8.6L13.8 12 3.6 1.8C4.1 1.5 4.8 1.5 5.4 1.9L17.2 8.6Z" fill="#FFC107" />
                         <path d="M17.2 15.4L5.4 22.1C4.8 22.5 4.1 22.5 3.6 22.2L13.8 12 17.2 15.4Z" fill="#FF5252" />
                         <path d="M20.8 10.6C21.6 11.1 22 11.6 22 12C22 12.4 21.6 12.9 20.8 13.4L17.2 15.4 13.8 12 17.2 8.6 20.8 10.6Z" fill="#4CAF50" />
                       </svg>
                     </div>
-                    <div className="text-left leading-tight flex-1">
-                      <span className="text-[10px] uppercase font-bold text-blue-100 block tracking-wider">
+                    <div className="text-left leading-tight flex-1 min-w-0">
+                      <span className="text-[8px] sm:text-[10px] uppercase font-bold text-blue-100 block tracking-wider">
                         GET IT ON
                       </span>
-                      <strong className="text-sm font-black text-white font-['Outfit'] group-hover:text-amber-300 transition-colors">
+                      <strong className="text-[11.5px] sm:text-sm font-black text-white font-['Outfit'] group-hover:text-amber-300 transition-colors block truncate">
                         Google Play (Captain)
                       </strong>
                     </div>
-                    <ArrowRight size={16} className="text-blue-200 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    <ArrowRight size={13} className="text-blue-200 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0 sm:w-4 sm:h-4" />
                   </a>
 
                   {/* App Store (Captain) */}
@@ -455,56 +449,61 @@ export default function AppDownloadModal({
                     href={partnerAppStoreUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3.5 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 p-3.5 rounded-2xl transition-all shadow-md hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-0.5 active:scale-98 group cursor-pointer border border-amber-400/40"
+                    className="flex items-center gap-2 sm:gap-3.5 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 p-2 sm:p-3.5 rounded-xl sm:rounded-2xl transition-all shadow-md hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-0.5 active:scale-98 group cursor-pointer border border-amber-400/40"
                   >
-                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-7 h-7 fill-slate-950" viewBox="0 0 24 24">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 sm:w-7 sm:h-7 fill-slate-950" viewBox="0 0 24 24">
                         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.89c.66-.82 1.11-1.96.99-3.1-.96.04-2.13.65-2.82 1.46-.61.71-1.14 1.87-1 2.98 1.08.08 2.18-.54 2.83-1.34z" />
                       </svg>
                     </div>
-                    <div className="text-left leading-tight flex-1">
-                      <span className="text-[10px] uppercase font-bold text-slate-800 block tracking-wider">
+                    <div className="text-left leading-tight flex-1 min-w-0">
+                      <span className="text-[8px] sm:text-[10px] uppercase font-bold text-slate-800 block tracking-wider">
                         DOWNLOAD ON THE
                       </span>
-                      <strong className="text-sm font-black text-slate-950 font-['Outfit'] transition-colors">
+                      <strong className="text-[11.5px] sm:text-sm font-black text-slate-950 font-['Outfit'] transition-colors block truncate">
                         App Store (Captain)
                       </strong>
                     </div>
-                    <ArrowRight size={16} className="text-slate-800 group-hover:text-slate-950 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight size={13} className="text-slate-800 group-hover:text-slate-950 group-hover:translate-x-1 transition-all flex-shrink-0 sm:w-4 sm:h-4" />
                   </a>
 
                   {/* Share Link Utility */}
-                  <div className="pt-1 flex items-center justify-between text-xs text-slate-500">
-                    <span className="text-[11px] font-medium">Captain Onboarding APK v2.8</span>
+                  <div className="pt-0.5 flex items-center justify-between text-xs text-slate-500">
+                    <span className="text-[9.5px] sm:text-[11px] font-medium">Captain APK v2.8</span>
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="text-amber-700 hover:underline font-bold text-[11px] flex items-center gap-1 cursor-pointer"
+                      className="text-amber-700 hover:underline font-bold text-[9.5px] sm:text-[11px] flex items-center gap-1 cursor-pointer"
                     >
-                      {copiedLink ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
-                      <span>{copiedLink ? 'Link Copied!' : 'Copy Captain App Link'}</span>
+                      {copiedLink ? <Check size={11} className="text-emerald-600" /> : <Copy size={11} />}
+                      <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
                     </button>
                   </div>
                 </div>
 
                 {/* Right: Tactile Camera QR Code Box for Captain (5 Cols) */}
-                <div className="sm:col-span-5 bg-gradient-to-b from-amber-50 to-orange-50/40 p-4 rounded-2xl border border-amber-200 flex flex-col items-center justify-center text-center space-y-2">
-                  <div className="relative p-2.5 bg-white rounded-2xl border border-amber-300 shadow-md">
+                <div className="sm:col-span-5 bg-gradient-to-b from-amber-50 to-orange-50/40 p-2 sm:p-4 rounded-xl sm:rounded-2xl border border-amber-200 flex flex-row sm:flex-col items-center justify-center text-left sm:text-center gap-2.5 sm:gap-2">
+                  <div className="relative p-1 sm:p-2.5 bg-white rounded-lg sm:rounded-2xl border border-amber-300 shadow-xs flex-shrink-0">
                     {/* Viewfinder Corner Accents */}
-                    <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-amber-500 rounded-tl" />
-                    <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-amber-500 rounded-tr" />
-                    <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-amber-500 rounded-bl" />
-                    <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-amber-500 rounded-br" />
+                    <div className="absolute -top-0.5 -left-0.5 sm:-top-1 sm:-left-1 w-2 sm:w-3 h-2 sm:h-3 border-t-2 border-l-2 border-amber-500 rounded-tl" />
+                    <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-2 sm:w-3 h-2 sm:h-3 border-t-2 border-r-2 border-amber-500 rounded-tr" />
+                    <div className="absolute -bottom-0.5 -left-0.5 sm:-bottom-1 sm:-left-1 w-2 sm:w-3 h-2 sm:h-3 border-b-2 border-l-2 border-amber-500 rounded-bl" />
+                    <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 w-2 sm:w-3 h-2 sm:h-3 border-b-2 border-r-2 border-amber-500 rounded-br" />
 
-                    <QrCode size={92} className="text-amber-950" />
+                    <div className="sm:hidden">
+                      <QrCode size={40} className="text-amber-950" />
+                    </div>
+                    <div className="hidden sm:block">
+                      <QrCode size={88} className="text-amber-950" />
+                    </div>
                   </div>
 
-                  <div className="space-y-0.5">
-                    <span className="text-xs font-black text-slate-900 block font-['Outfit']">
+                  <div className="space-y-0.5 min-w-0">
+                    <span className="text-[10px] sm:text-xs font-black text-slate-900 block font-['Outfit']">
                       Captain Fast-Install QR
                     </span>
-                    <p className="text-[10px] text-slate-500 leading-tight">
-                      Scan to download and complete KYC registration in 5 mins.
+                    <p className="text-[8.5px] sm:text-[10px] text-slate-500 leading-tight">
+                      Scan to download & KYC in 5 mins.
                     </p>
                   </div>
                 </div>

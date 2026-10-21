@@ -109,3 +109,49 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* 3D Testimonials Card Carousel Animations & Transitions */
+@keyframes cardSlideInRight {
+  0% {
+    opacity: 0.55;
+    transform: translateX(42px) scale(0.93) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes cardSlideInLeft {
+  0% {
+    opacity: 0.55;
+    transform: translateX(-42px) scale(0.93) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes cardAmbientGlow {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+.animate-card-slide-next {
+  animation: cardSlideInRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-card-slide-prev {
+  animation: cardSlideInLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-card-glow {
+  animation: cardAmbientGlow 4s ease-in-out infinite;
+}

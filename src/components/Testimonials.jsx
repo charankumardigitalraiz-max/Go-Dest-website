@@ -144,20 +144,25 @@ export default function Testimonials() {
   ];
 
   const totalReviews = reviews.length;
+  const [direction, setDirection] = useState('next');
 
-  // Continuous Auto-play timer (auto moves every 3.5s)
+  // Continuous Auto-play timer (auto moves every 4s, pauses on hover)
   useEffect(() => {
+    if (!isAutoPlaying) return;
     const interval = setInterval(() => {
+      setDirection('next');
       setCarouselIndex((prev) => (prev + 1) % totalReviews);
-    }, 3500);
+    }, 4000);
     return () => clearInterval(interval);
-  }, [totalReviews]);
+  }, [totalReviews, isAutoPlaying]);
 
   // Handlers
   const handleNext = () => {
+    setDirection('next');
     setCarouselIndex((prev) => (prev + 1) % totalReviews);
   };
   const handlePrev = () => {
+    setDirection('prev');
     setCarouselIndex((prev) => (prev - 1 + totalReviews) % totalReviews);
   };
 
@@ -331,16 +336,25 @@ export default function Testimonials() {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onMouseEnter={() => setIsAutoPlaying(false)}
+            onMouseLeave={() => setIsAutoPlaying(true)}
           >
             {/* 3D Stacked Carousel Stage */}
             <div className="relative w-full max-w-[560px] h-[460px] sm:h-[490px] flex items-center justify-center">
               {/* 1. LEFT CARD (Warm Cream/Yellow Background, Tilted Left) */}
               {prevReview && (
                 <div
+                  key={`prev-${prevReview.id}`}
                   onClick={handlePrev}
-                  className="absolute left-0 sm:left-4 w-[240px] sm:w-[270px] h-[340px] sm:h-[370px] bg-[#FEF9E7] rounded-[28px] p-6 flex flex-col justify-between shadow-md cursor-pointer transition-all duration-500 ease-out transform -rotate-6 -translate-x-4 sm:-translate-x-8 translate-y-3 scale-95 opacity-85 hover:opacity-100 hover:scale-98 z-10 border border-amber-200/50"
-                  title="Previous customer story"
+                  className="absolute left-0 sm:left-4 w-[240px] sm:w-[270px] h-[340px] sm:h-[370px] bg-[#FEF9E7] rounded-[28px] p-6 flex flex-col justify-between shadow-md cursor-pointer transition-all duration-500 ease-out transform -rotate-6 -translate-x-4 sm:-translate-x-8 translate-y-3 scale-95 opacity-80 hover:opacity-100 hover:scale-100 hover:-translate-x-6 sm:hover:-translate-x-12 hover:-rotate-8 z-10 border border-amber-200/60 hover:border-amber-400 hover:shadow-xl group"
+                  title="Click to view previous customer story"
                 >
+                  {/* Floating tooltip on hover */}
+                  <div className="absolute -top-3 left-6 px-2.5 py-0.5 rounded-full bg-[#F5B800] text-slate-950 text-[10px] font-black uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-sm flex items-center gap-1 scale-90 group-hover:scale-100 pointer-events-none">
+                    <ChevronLeft size={12} />
+                    <span>Previous</span>
+                  </div>
+
                   <div>
                     {/* User Avatar */}
                     <img
@@ -350,7 +364,7 @@ export default function Testimonials() {
                         e.target.style.display = 'none';
                         e.target.nextSibling.style.display = 'flex';
                       }}
-                      className="w-13 h-13 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-white shadow-xs"
+                      className="w-13 h-13 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-white shadow-xs group-hover:scale-105 transition-transform"
                     />
                     <div
                       style={{ display: 'none' }}
@@ -373,18 +387,37 @@ export default function Testimonials() {
                 </div>
               )}
 
-              {/* 2. CENTER CARD (Hero White Card, Front & Prominent) */}
+              {/* 2. CENTER CARD (Hero White Card, Front & Prominent with Highlight Aura) */}
               {activeReview && (
-                <div className="relative w-full max-w-[340px] sm:max-w-[390px] min-h-[430px] sm:min-h-[450px] bg-white rounded-[32px] p-7 sm:p-9 flex flex-col justify-between shadow-[0_25px_60px_-15px_rgba(0,0,0,0.14)] transition-all duration-500 ease-out z-20 border border-slate-100">
+                <div
+                  key={activeReview.id}
+                  className={`relative w-full max-w-[340px] sm:max-w-[390px] min-h-[430px] sm:min-h-[450px] bg-white rounded-[32px] p-7 sm:p-9 flex flex-col justify-between shadow-[0_25px_60px_-15px_rgba(0,0,0,0.14)] z-20 border border-slate-100 ${
+                    direction === 'next' ? 'animate-card-slide-next' : 'animate-card-slide-prev'
+                  }`}
+                >
+                  {/* Glowing Ambient Highlight Aura */}
+                  <div className="absolute -inset-1.5 rounded-[36px] bg-gradient-to-tr from-amber-400/25 via-blue-500/20 to-amber-300/30 blur-md pointer-events-none -z-10 animate-card-glow" />
+
+                  {/* Top Golden-Blue Accent Bar */}
+                  <div className="absolute top-0 inset-x-8 h-1.5 bg-gradient-to-r from-amber-400 via-[#F5B800] to-blue-600 rounded-b-full shadow-xs" />
+
                   <div className="space-y-4">
-                    {/* Big Solid Blue Double Quote SVG */}
-                    <div className="text-[#2563EB]">
-                      <svg
-                        className="w-10 h-8 sm:w-12 sm:h-9 fill-current"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                      </svg>
+                    <div className="flex items-center justify-between">
+                      {/* Big Solid Blue Double Quote SVG */}
+                      <div className="text-[#2563EB]">
+                        <svg
+                          className="w-10 h-8 sm:w-12 sm:h-9 fill-current"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                        </svg>
+                      </div>
+
+                      {/* Moving Card Highlight: Zero Surge Ride Tag */}
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 text-[11px] font-extrabold shadow-2xs">
+                        <Zap size={12} className="text-[#F5B800] fill-[#F5B800]" />
+                        <span>Zero Surge Ride</span>
+                      </span>
                     </div>
 
                     {/* 5 Solid Gold Stars */}
@@ -436,8 +469,9 @@ export default function Testimonials() {
 
                     {/* Verified Trip Receipt Trigger */}
                     <button
+                      type="button"
                       onClick={() => setSelectedReceiptReview(activeReview)}
-                      className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-blue-600 transition-colors shadow-2xs"
+                      className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-blue-600 transition-colors shadow-2xs cursor-pointer"
                       title="View Verified Trip Receipt"
                     >
                       <Receipt size={16} />
@@ -449,10 +483,17 @@ export default function Testimonials() {
               {/* 3. RIGHT CARD (Pastel Blue Background, Tilted Right) */}
               {nextReview && (
                 <div
+                  key={`next-${nextReview.id}`}
                   onClick={handleNext}
-                  className="absolute right-0 sm:right-4 w-[240px] sm:w-[270px] h-[340px] sm:h-[370px] bg-[#EDF5FF] rounded-[28px] p-6 flex flex-col justify-between shadow-md cursor-pointer transition-all duration-500 ease-out transform rotate-6 translate-x-4 sm:translate-x-8 translate-y-3 scale-95 opacity-85 hover:opacity-100 hover:scale-98 z-10 border border-blue-200/50"
-                  title="Next customer story"
+                  className="absolute right-0 sm:right-4 w-[240px] sm:w-[270px] h-[340px] sm:h-[370px] bg-[#EDF5FF] rounded-[28px] p-6 flex flex-col justify-between shadow-md cursor-pointer transition-all duration-500 ease-out transform rotate-6 translate-x-4 sm:translate-x-8 translate-y-3 scale-95 opacity-80 hover:opacity-100 hover:scale-100 hover:translate-x-6 sm:hover:translate-x-12 hover:rotate-8 z-10 border border-blue-200/60 hover:border-blue-400 hover:shadow-xl group"
+                  title="Click to view next customer story"
                 >
+                  {/* Floating tooltip on hover */}
+                  <div className="absolute -top-3 right-6 px-2.5 py-0.5 rounded-full bg-[#2563EB] text-white text-[10px] font-black uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-sm flex items-center gap-1 scale-90 group-hover:scale-100 pointer-events-none">
+                    <span>Next</span>
+                    <ChevronRight size={12} />
+                  </div>
+
                   <div>
                     {/* User Avatar */}
                     <img
@@ -462,7 +503,7 @@ export default function Testimonials() {
                         e.target.style.display = 'none';
                         e.target.nextSibling.style.display = 'flex';
                       }}
-                      className="w-13 h-13 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-white shadow-xs"
+                      className="w-13 h-13 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-white shadow-xs group-hover:scale-105 transition-transform"
                     />
                     <div
                       style={{ display: 'none' }}
@@ -489,49 +530,56 @@ export default function Testimonials() {
             {/* ========================================================= */}
             {/* CAROUSEL BOTTOM CONTROLS: INDICATOR, COUNTER & ARROWS     */}
             {/* ========================================================= */}
-            {/* <div className="w-full max-w-[560px] flex items-center justify-between sm:justify-end gap-6 sm:gap-8 mt-6 px-4">
+            <div className="w-full max-w-[560px] flex items-center justify-between sm:justify-end gap-5 sm:gap-7 mt-6 px-4">
               
+              {/* Pagination Dots with Smooth Pill Highlight */}
               <div className="flex items-center gap-1.5">
                 {reviews.map((_, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setCarouselIndex(idx)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                    type="button"
+                    onClick={() => {
+                      setDirection(idx > carouselIndex ? 'next' : 'prev');
+                      setCarouselIndex(idx);
+                    }}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                       idx === carouselIndex
-                        ? 'w-10 bg-[#F5B800]'
-                        : 'w-7 bg-slate-200 hover:bg-slate-300'
+                        ? 'w-10 bg-[#F5B800] shadow-2xs'
+                        : 'w-2.5 bg-slate-200 hover:bg-slate-300'
                     }`}
                     aria-label={`Go to slide ${idx + 1}`}
                   />
                 ))}
               </div>
 
-             
-              <div className="text-slate-600 font-semibold text-xs sm:text-sm font-mono tracking-wider">
+              {/* Slide Counter */}
+              <div className="text-slate-600 font-bold text-xs sm:text-sm font-mono tracking-wider">
                 0{carouselIndex + 1} <span className="text-slate-300">/</span> 0{totalReviews}
               </div>
 
-         
-              <div className="flex items-center gap-3">
+              {/* Prev & Next Navigation Buttons */}
+              <div className="flex items-center gap-2.5">
                 <button
+                  type="button"
                   onClick={handlePrev}
-                  className="w-12 h-12 rounded-full bg-[#FEF0C7] hover:bg-amber-300 text-slate-800 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs focus:outline-none"
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#FEF0C7] hover:bg-[#F5B800] text-slate-900 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 shadow-xs border border-amber-300/60 cursor-pointer"
                   aria-label="Previous customer story"
                   title="Previous story"
                 >
-                  <ChevronLeft size={20} className="stroke-[2.5]" />
+                  <ChevronLeft size={18} className="stroke-[2.5]" />
                 </button>
 
                 <button
+                  type="button"
                   onClick={handleNext}
-                  className="w-12 h-12 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-md focus:outline-none"
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 shadow-md cursor-pointer"
                   aria-label="Next customer story"
                   title="Next story"
                 >
-                  <ChevronRight size={20} className="stroke-[2.5]" />
+                  <ChevronRight size={18} className="stroke-[2.5]" />
                 </button>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
