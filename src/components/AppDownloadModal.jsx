@@ -131,13 +131,13 @@ export default function AppDownloadModal({
             <button
               type="button"
               onClick={onClose}
-              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 flex-shrink-0 ${activeTab === 'rider'
-                ? 'bg-white/10 hover:bg-white/25 border border-white/20 text-white'
-                : 'bg-slate-950/15 hover:bg-slate-950/25 border border-slate-950/20 text-slate-950'
+              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95 flex-shrink-0 group ${activeTab === 'rider'
+                ? 'bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 border border-amber-300'
+                : 'bg-[#2563EB] hover:bg-[#1D4ED8] text-white border border-blue-400/40'
                 }`}
               aria-label="Close modal"
             >
-              <X size={16} />
+              <X size={16} className="transition-transform duration-200 group-hover:rotate-90" />
             </button>
           </div>
 
