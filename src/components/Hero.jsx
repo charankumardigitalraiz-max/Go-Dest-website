@@ -13,11 +13,14 @@ import {
   CheckCircle2,
   Zap,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Smartphone
 } from 'lucide-react';
+import AppDownloadModal from './AppDownloadModal';
 
 export default function Hero({ onStartBooking: _onStartBooking, selectedPreRoute: _selectedPreRoute, selectedPreCategory }) {
   const [activeVehicleView, setActiveVehicleView] = useState('car'); // 'car' | 'bike' | 'auto'
+  const [isAppModalOpen, setIsAppModalOpen] = useState(false);
 
   useEffect(() => {
     if (selectedPreCategory) {
@@ -215,19 +218,18 @@ export default function Hero({ onStartBooking: _onStartBooking, selectedPreRoute
               </div>
             </div> */}
 
-            {/* Direct Action Strip: WhatsApp + Helpline + Fleet */}
+            {/* Direct Action Strip: Instant App Booking + Fleet */}
             <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-1">
-              {/* WhatsApp Direct */}
-              <a
-                href="https://wa.me/914060007000?text=Hi%20GODest,%20I%20want%20to%20book%20a%20ride"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:flex-1 flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 font-bold py-3 px-5 rounded-2xl shadow-md hover:shadow-lg transition-all active:scale-95 text-xs sm:text-sm group cursor-pointer"
+              {/* Primary Instant Booking Button -> Opens App Download Modal */}
+              <button
+                type="button"
+                onClick={() => setIsAppModalOpen(true)}
+                className="w-full sm:flex-1 flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 font-extrabold py-3 px-5 rounded-2xl shadow-md hover:shadow-lg transition-all active:scale-95 text-xs sm:text-sm group cursor-pointer"
               >
-                <MessageCircle size={17} className="fill-slate-950 text-slate-950" />
-                <span>Book Instantly on WhatsApp</span>
+                <Smartphone size={17} className="stroke-[2.5]" />
+                <span>Book Ride Instantly on App</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
-              </a>
+              </button>
 
               {/* 24/7 Helpline */}
               {/* <a
@@ -312,9 +314,9 @@ export default function Hero({ onStartBooking: _onStartBooking, selectedPreRoute
               </span>
               <div className="flex items-center gap-2">
                 {[
-                  { id: 'car', label: 'AC Cabs', icon: <Car size={14} /> },
                   { id: 'bike', label: 'Bike', icon: <Bike size={14} /> },
-                  { id: 'auto', label: 'Auto', icon: <AutoRickshawIcon size={14} /> }
+                  { id: 'auto', label: 'Auto', icon: <AutoRickshawIcon size={14} /> },
+                  { id: 'car', label: 'AC Cabs', icon: <Car size={14} /> },
                 ].map((item) => (
                   <button
                     key={item.id}
@@ -370,6 +372,20 @@ export default function Hero({ onStartBooking: _onStartBooking, selectedPreRoute
         </div>
 
       </div>
+
+      {/* App Store & Google Play Instant Booking Modal */}
+      <AppDownloadModal
+        isOpen={isAppModalOpen}
+        onClose={() => setIsAppModalOpen(false)}
+        defaultTab="rider"
+        onNavigateToPartner={() => {
+          setIsAppModalOpen(false);
+          const el = document.getElementById('contact-section');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      />
     </section>
   );
 }

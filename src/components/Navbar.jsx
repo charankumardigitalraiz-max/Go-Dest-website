@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
+import AppDownloadModal from './AppDownloadModal';
 import {
   PhoneCall,
   ShieldCheck,
@@ -21,6 +22,8 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [isAppModalOpen, setIsAppModalOpen] = useState(false);
+  const [modalTab, setModalTab] = useState('rider');
 
   const navItems = [
     {
@@ -75,9 +78,9 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
         }
       }
 
-      // Check if user is at the bottom of the page
+      // Check if user is at the bottom of the page (footer / contact section)
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
-        current = 'testimonials-section';
+        current = 'contact-section';
       }
 
       setActiveSection(current);
@@ -230,18 +233,20 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
 
 
             {/* Drive with Us Captain Partner CTA */}
-            <a
-              href="https://wa.me/914060007000?text=Hi%20GODest,%20I%20want%20to%20register%20as%20a%20Captain"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50/70 hover:bg-amber-100/90 text-amber-950 border border-amber-300/80 transition-all duration-150 font-bold shadow-2xs group ml-1"
+            <button
+              type="button"
+              onClick={() => {
+                setModalTab('partner');
+                setIsAppModalOpen(true);
+              }}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50/70 hover:bg-amber-100/90 text-amber-950 border border-amber-300/80 transition-all duration-150 font-bold shadow-2xs group ml-1 cursor-pointer"
             >
               <Zap size={14} className="text-[#F5B800] fill-[#F5B800] group-hover:scale-110 transition-transform" />
               <span>Drive with Us</span>
               <span className="text-[10px] uppercase font-extrabold tracking-wider px-1.5 py-0.5 rounded-md bg-[#F5B800] text-slate-950 shadow-2xs">
                 Earn
               </span>
-            </a>
+            </button>
           </nav>
 
           {/* Right Action Area */}
@@ -249,7 +254,10 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
             {/* Primary Book Ride Button */}
             <button
               type="button"
-              onClick={onBookClick}
+              onClick={() => {
+                setModalTab('rider');
+                setIsAppModalOpen(true);
+              }}
               className="flex items-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 font-extrabold px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-95 transition-all cursor-pointer group"
             >
               <Sparkles size={15} className="group-hover:rotate-12 transition-transform" />
@@ -281,7 +289,8 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
-                onBookClick();
+                setModalTab('rider');
+                setIsAppModalOpen(true);
               }}
               className="flex items-center justify-center gap-1.5 bg-[#F5B800] text-slate-950 font-bold py-2.5 px-3 rounded-xl text-xs shadow-sm cursor-pointer"
             >
@@ -289,16 +298,18 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
               <span>Book Ride</span>
             </button>
 
-            <a
-              href="https://wa.me/914060007000?text=Hi%20GODest,%20I%20want%20to%20register%20as%20a%20Captain"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-1.5 bg-amber-50 border border-amber-300 text-amber-950 font-bold py-2.5 px-3 rounded-xl text-xs shadow-2xs"
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setModalTab('partner');
+                setIsAppModalOpen(true);
+              }}
+              className="flex items-center justify-center gap-1.5 bg-amber-50 border border-amber-300 text-amber-950 font-bold py-2.5 px-3 rounded-xl text-xs shadow-2xs cursor-pointer"
             >
               <Zap size={14} className="text-[#F5B800] fill-[#F5B800]" />
               <span>Join as Captain</span>
-            </a>
+            </button>
           </div>
 
           {/* Navigation Links */}
@@ -368,6 +379,20 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
 
         </div>
       )}
+
+      {/* App Store & Play Store Download / Partner With Us Modal */}
+      <AppDownloadModal
+        isOpen={isAppModalOpen}
+        onClose={() => setIsAppModalOpen(false)}
+        defaultTab={modalTab}
+        onNavigateToPartner={() => {
+          setIsAppModalOpen(false);
+          const el = document.getElementById('contact-section');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      />
     </header>
   );
 }

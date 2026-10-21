@@ -67,7 +67,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
       name: 'GODest Moto (Bike Taxi)',
       badge: 'Fastest in Peak Traffic',
       tagline: 'Beat Dense City Bottlenecks Solo',
-      image: '/images/godest_hitec_city_mobility_trio_b.png',
+      image: '/images/godest_bike_taxi_hero_a.png',
       fareLabel: 'Starts ₹25',
       fareSub: '₹7 / km • Zero rain surge',
       eta: '2 Mins Pickup',
@@ -141,7 +141,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
   const current = modeContent[activeMode];
 
   return (
-    <section className="py-10 sm:py-14 bg-[#F8FAFC] border-b border-slate-200 scroll-mt-20" id="fleet-section">
+    <section className="py-10 sm:py-14 bg-white border-b border-slate-200 scroll-mt-20" id="fleet-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -162,6 +162,80 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
             Switch effortlessly between Bike Taxi, Metered Auto, and AC Cabs. Real-time telemetry, zero surge pricing, and 100% verified captain safety across all corridors.
           </p>
         </div>
+
+
+        {/* BOTTOM TACTILE MODE CARDS (3 Columns) */}
+        {/* <div className="mt-6 grid grid-cols-1 md:grid-cols-3 my-3 gap-4">
+
+      
+          <div
+            onClick={() => setActiveMode('bike')}
+            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'bike'
+              ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
+              : 'border-slate-200 hover:border-slate-300'
+              }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                <Bike size={20} />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">GODest Moto</h4>
+                <p className="text-[11px] text-slate-500 font-medium">Solo Commute • Starts ₹25</p>
+              </div>
+            </div>
+            <span className="text-xs font-bold text-blue-600 font-['Outfit'] flex items-center gap-1">
+              Select <ArrowRight size={12} />
+            </span>
+          </div>
+
+        
+          <div
+            onClick={() => setActiveMode('auto')}
+            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'auto'
+              ? 'border-amber-500 ring-2 ring-amber-400/20 bg-amber-50/30'
+              : 'border-slate-200 hover:border-slate-300'
+              }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
+                <AutoRickshawIcon size={20} />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">GODest Auto</h4>
+                <p className="text-[11px] text-slate-500 font-medium">Digital Meter • Starts ₹35</p>
+              </div>
+            </div>
+            <span className="text-xs font-bold text-amber-800 font-['Outfit'] flex items-center gap-1">
+              Select <ArrowRight size={12} />
+            </span>
+          </div>
+
+         
+          <div
+            onClick={() => setActiveMode('car')}
+            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'car'
+              ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
+              : 'border-slate-200 hover:border-slate-300'
+              }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                <Car size={20} />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">Prime AC Cabs</h4>
+                <p className="text-[11px] text-slate-500 font-medium">Electric SUV • Starts ₹89</p>
+              </div>
+            </div>
+            <span className="text-xs font-bold text-blue-600 font-['Outfit'] flex items-center gap-1">
+              Select <ArrowRight size={12} />
+            </span>
+          </div>
+
+        </div> */}
+
+
 
         {/* Bento Grid Architecture */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
@@ -412,76 +486,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
 
         </div>
 
-        {/* BOTTOM TACTILE MODE CARDS (3 Columns) */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
 
-          {/* Card 1: Moto */}
-          <div
-            onClick={() => setActiveMode('bike')}
-            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'bike'
-              ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
-              : 'border-slate-200 hover:border-slate-300'
-              }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
-                <Bike size={20} />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">GODest Moto</h4>
-                <p className="text-[11px] text-slate-500 font-medium">Solo Commute • Starts ₹25</p>
-              </div>
-            </div>
-            <span className="text-xs font-bold text-blue-600 font-['Outfit'] flex items-center gap-1">
-              Select <ArrowRight size={12} />
-            </span>
-          </div>
-
-          {/* Card 2: Auto */}
-          <div
-            onClick={() => setActiveMode('auto')}
-            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'auto'
-              ? 'border-amber-500 ring-2 ring-amber-400/20 bg-amber-50/30'
-              : 'border-slate-200 hover:border-slate-300'
-              }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
-                <AutoRickshawIcon size={20} />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">GODest Auto</h4>
-                <p className="text-[11px] text-slate-500 font-medium">Digital Meter • Starts ₹35</p>
-              </div>
-            </div>
-            <span className="text-xs font-bold text-amber-800 font-['Outfit'] flex items-center gap-1">
-              Select <ArrowRight size={12} />
-            </span>
-          </div>
-
-          {/* Card 3: Cab */}
-          <div
-            onClick={() => setActiveMode('car')}
-            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'car'
-              ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
-              : 'border-slate-200 hover:border-slate-300'
-              }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
-                <Car size={20} />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-slate-900 font-['Outfit']">Prime AC Cabs</h4>
-                <p className="text-[11px] text-slate-500 font-medium">Electric SUV • Starts ₹89</p>
-              </div>
-            </div>
-            <span className="text-xs font-bold text-blue-600 font-['Outfit'] flex items-center gap-1">
-              Select <ArrowRight size={12} />
-            </span>
-          </div>
-
-        </div>
 
       </div>
     </section>
