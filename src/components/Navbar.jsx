@@ -50,12 +50,12 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
       fullLabel: 'Rider Reviews & Ratings',
       icon: Star
     },
-    {
-      id: 'contact-section',
-      label: 'Contact',
-      fullLabel: 'Contact Us & 24/7 Desk',
-      icon: PhoneCall
-    }
+    // {
+    //   id: 'contact-section',
+    //   label: 'Contact',
+    //   fullLabel: 'Contact Us & 24/7 Desk',
+    //   icon: PhoneCall
+    // }
   ];
 
   // Accurate ScrollSpy using getBoundingClientRect
