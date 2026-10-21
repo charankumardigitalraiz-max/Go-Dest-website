@@ -212,7 +212,7 @@ export default function App() {
         <Testimonials />
 
         {/* 24/7 Command Desk Contact & Headquarters Section */}
-        <ContactSection onOpenLegal={handleOpenLegal} />
+        {/* <ContactSection onOpenLegal={handleOpenLegal} /> */}
       </main>
 
       {/* Footer */}
