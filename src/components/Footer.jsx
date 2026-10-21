@@ -18,11 +18,12 @@ import {
   Scale,
   FileText,
   Lock,
-  Receipt
+  Receipt,
+  Headphones
 } from 'lucide-react';
 import { AutoRickshawIcon } from './VehicleIcon';
 
-export default function Footer({ onBookClick: _onBookClick, onOpenLegal } = {}) {
+export default function Footer({ onBookClick: _onBookClick, onOpenLegal, onOpenSupport } = {}) {
   return (
     <footer className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-amber-50/30 text-slate-700 pt-12 pb-8 border-t border-slate-200">
 
@@ -168,6 +169,16 @@ export default function Footer({ onBookClick: _onBookClick, onOpenLegal } = {}) 
                   <span>Rider Reviews</span>
                 </a>
               </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onOpenSupport?.()}
+                  className="hover:text-blue-600 transition-colors flex items-center gap-2 group cursor-pointer text-left text-xs sm:text-sm font-semibold text-slate-700"
+                >
+                  <Headphones size={13} className="text-blue-600 flex-shrink-0" />
+                  <span>Help & Support Portal</span>
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -244,6 +255,16 @@ export default function Footer({ onBookClick: _onBookClick, onOpenLegal } = {}) 
                 </a>
               </div>
             </div>
+
+            {/* Direct Support Portal Button */}
+            <button
+              type="button"
+              onClick={() => onOpenSupport?.()}
+              className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-bold text-xs transition-colors cursor-pointer"
+            >
+              <Headphones size={13} />
+              <span>Open 24/7 Support Desk</span>
+            </button>
 
             {/* Emergency Hotline Chips */}
             <div className="pt-1 flex items-center gap-2 text-[11px] font-semibold">
@@ -346,14 +367,14 @@ export default function Footer({ onBookClick: _onBookClick, onOpenLegal } = {}) 
         {/* Bottom Sub-Footer Bar: Clean copyright, corporate CIN & 24/7 National Hotline */}
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-medium">
           <div>
-            © 2026 GODest Technologies Pvt Ltd. All rights reserved. Pan-India Mobility Aggregator.
+            © 2026 GODest Technologies Pvt Ltd. All rights reserved.
           </div>
 
           <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-500">
             <span>CIN: U63090TG2026PTC184201</span>
             <span>•</span>
-            <span>Hitec City, Hyderabad 500081</span>
-            <span>•</span>
+            {/* <span>Hitec City, Hyderabad 500081</span>
+            <span>•</span> */}
             <a
               href="tel:04060007000"
               className="text-blue-700 hover:text-blue-800 font-bold transition-colors inline-flex items-center gap-1"

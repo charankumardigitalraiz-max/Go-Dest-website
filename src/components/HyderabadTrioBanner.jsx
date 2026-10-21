@@ -167,7 +167,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
           {/* MAIN STAGE BENTO (8 Cols) */}
-          <div className="lg:col-span-8 bg-white rounded-3xl border border-slate-200/90 shadow-lg p-5 sm:p-7 flex flex-col justify-between space-y-5">
+          <div className="lg:col-span-8 bg-white rounded-md border border-slate-200/90 shadow-lg p-5 sm:p-7 flex flex-col justify-between space-y-5">
 
             {/* Top Interactive Mode Pills */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
@@ -175,8 +175,8 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
                 <button
                   onClick={() => setActiveMode('trio')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'trio'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-700 hover:text-blue-700'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-700 hover:text-blue-700'
                     }`}
                 >
                   <Sparkles size={13} />
@@ -186,8 +186,8 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
                 <button
                   onClick={() => setActiveMode('bike')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'bike'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-700 hover:text-blue-700'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-700 hover:text-blue-700'
                     }`}
                 >
                   <Bike size={14} />
@@ -197,8 +197,8 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
                 <button
                   onClick={() => setActiveMode('auto')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'auto'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-700 hover:text-blue-700'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-700 hover:text-blue-700'
                     }`}
                 >
                   <AutoRickshawIcon size={14} />
@@ -208,8 +208,8 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
                 <button
                   onClick={() => setActiveMode('car')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeMode === 'car'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-700 hover:text-blue-700'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-700 hover:text-blue-700'
                     }`}
                 >
                   <Car size={14} />
@@ -317,7 +317,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
           <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
 
             {/* WIDGET 1: Live Dispatch Radar */}
-            <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-5 space-y-3">
+            <div className="bg-white rounded-md border border-slate-200/90 shadow-md p-5 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-3 w-3">
@@ -357,7 +357,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
             </div>
 
             {/* WIDGET 2: 1.0x Zero Surge Lock */}
-            <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-5 space-y-3">
+            <div className="bg-white rounded-md border border-slate-200/90 shadow-md p-5 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-amber-700">
                   <ShieldCheck size={16} />
@@ -384,7 +384,7 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
             </div>
 
             {/* WIDGET 3: 24x7 Direct Phone Dispatch */}
-            <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-5 space-y-3">
+            <div className="bg-white rounded-md border border-slate-200/90 shadow-md p-5 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-blue-700">
                   <PhoneCall size={16} />
@@ -418,9 +418,9 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
           {/* Card 1: Moto */}
           <div
             onClick={() => setActiveMode('bike')}
-            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'bike'
-                ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
-                : 'border-slate-200 hover:border-slate-300'
+            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'bike'
+              ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
+              : 'border-slate-200 hover:border-slate-300'
               }`}
           >
             <div className="flex items-center gap-3">
@@ -440,9 +440,9 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
           {/* Card 2: Auto */}
           <div
             onClick={() => setActiveMode('auto')}
-            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'auto'
-                ? 'border-amber-500 ring-2 ring-amber-400/20 bg-amber-50/30'
-                : 'border-slate-200 hover:border-slate-300'
+            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'auto'
+              ? 'border-amber-500 ring-2 ring-amber-400/20 bg-amber-50/30'
+              : 'border-slate-200 hover:border-slate-300'
               }`}
           >
             <div className="flex items-center gap-3">
@@ -462,9 +462,9 @@ export default function HyderabadTrioBanner({ onSelectCategory }) {
           {/* Card 3: Cab */}
           <div
             onClick={() => setActiveMode('car')}
-            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'car'
-                ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
-                : 'border-slate-200 hover:border-slate-300'
+            className={`p-4 rounded-md border-2 cursor-pointer transition-all bg-white flex items-center justify-between shadow-xs hover:shadow-md ${activeMode === 'car'
+              ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/30'
+              : 'border-slate-200 hover:border-slate-300'
               }`}
           >
             <div className="flex items-center gap-3">

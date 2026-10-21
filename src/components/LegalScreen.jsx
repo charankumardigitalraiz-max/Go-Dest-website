@@ -30,6 +30,7 @@ export default function LegalScreen({
   initialTab = 'terms',
   onNavigateHome,
   onBookClick,
+  onOpenSupport,
   onSelectTab
 }) {
   const [activeTab, setActiveTab] = useState(initialTab);
@@ -129,14 +130,16 @@ export default function LegalScreen({
           </div>
 
           <div className="flex items-center gap-3">
-            <a
-              href="tel:04060007000"
-              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition-colors"
+            <button
+              type="button"
+              onClick={() => onOpenSupport?.()}
+              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition-colors cursor-pointer"
+              title="Open 24/7 Support Desk"
             >
               <PhoneCall size={12} className="text-[#F5B800]" />
               <span className="hidden sm:inline text-slate-400">24/7 National Desk:</span>
               <strong className="text-white font-bold tracking-wide">040-6000-7000</strong>
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -840,6 +843,7 @@ export default function LegalScreen({
       <Footer
         onBookClick={onBookClick}
         onOpenLegal={(tab) => handleTabChange(tab)}
+        onOpenSupport={onOpenSupport}
       />
 
     </div>

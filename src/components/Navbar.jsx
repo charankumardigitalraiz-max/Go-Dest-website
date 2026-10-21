@@ -13,10 +13,11 @@ import {
   Scale,
   Star,
   ArrowRight,
-  CheckCircle2
+  CheckCircle2,
+  Headphones
 } from 'lucide-react';
 
-export default function Navbar({ onBookClick, onOpenLegal }) {
+export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavigateHome }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -45,6 +46,12 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
       label: 'Reviews',
       fullLabel: 'Rider Reviews & Ratings',
       icon: Star
+    },
+    {
+      id: 'contact-section',
+      label: 'Contact',
+      fullLabel: 'Contact Us & 24/7 Desk',
+      icon: PhoneCall
     }
   ];
 
@@ -53,7 +60,7 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 15);
 
-      const sectionIds = ['fleet-section', 'safety-section', 'app-download-section', 'testimonials-section'];
+      const sectionIds = ['fleet-section', 'safety-section', 'app-download-section', 'testimonials-section', 'contact-section'];
       let current = '';
 
       for (const id of sectionIds) {
@@ -100,22 +107,25 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
       window.history.pushState(null, '', `#${id}`);
+    } else if (onNavigateHome) {
+      onNavigateHome(id);
+    } else {
+      window.location.hash = `#${id}`;
     }
     setMobileMenuOpen(false);
   };
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-200 ${
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.08)]'
-          : 'bg-white/98 backdrop-blur-sm border-b border-slate-100 shadow-none'
-      }`}
+      className={`sticky top-0 z-50 w-full transition-all duration-200 ${isScrolled
+        ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.08)]'
+        : 'bg-white/98 backdrop-blur-sm border-b border-slate-100 shadow-none'
+        }`}
     >
       {/* Top Midnight Trust Bar: Sleek, high-contrast & premium */}
       <div className="bg-[#0F172A] text-slate-300 text-[11px] sm:text-xs py-1.5 px-4 border-b border-slate-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          
+
           {/* Left Trust Badges */}
           <div className="flex items-center gap-2.5 sm:gap-3 text-slate-300 font-medium">
             <button
@@ -151,14 +161,16 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
 
             <span className="hidden lg:inline text-slate-700">|</span>
 
-            <a
-              href="tel:04060007000"
-              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition-colors"
+            <button
+              type="button"
+              onClick={() => onOpenSupport?.()}
+              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition-colors cursor-pointer"
+              title="Open 24/7 Support Desk"
             >
               <PhoneCall size={12} className="text-[#F5B800]" />
               <span className="hidden sm:inline text-slate-400">24/7 Desk:</span>
               <strong className="text-white font-bold tracking-wide">040-6000-7000</strong>
-            </a>
+            </button>
           </div>
 
         </div>
@@ -167,10 +179,16 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18 sm:h-20">
-          
+
           {/* Logo */}
           <a
             href="#"
+            onClick={(e) => {
+              if (onNavigateHome) {
+                e.preventDefault();
+                onNavigateHome();
+              }
+            }}
             className="flex-shrink-0 transition-opacity hover:opacity-95 py-1"
             aria-label="GODest Home"
           >
@@ -188,19 +206,17 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
                   key={item.id}
                   href={`#${item.id}`}
                   onClick={(e) => handleNavClick(e, item.id)}
-                  className={`relative flex items-center gap-2 px-3.5 py-2 rounded-xl transition-all duration-200 group ${
-                    isActive
-                      ? 'bg-slate-900 text-white font-bold shadow-xs'
-                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 font-semibold'
-                  }`}
+                  className={`relative flex items-center gap-2 px-3.5 py-2 rounded-xl transition-all duration-200 group ${isActive
+                    ? 'bg-slate-900 text-white font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 font-semibold'
+                    }`}
                 >
                   <IconComp
                     size={15}
-                    className={`transition-colors ${
-                      isActive
-                        ? 'text-[#F5B800]'
-                        : 'text-slate-400 group-hover:text-slate-700'
-                    }`}
+                    className={`transition-colors ${isActive
+                      ? 'text-[#F5B800]'
+                      : 'text-slate-400 group-hover:text-slate-700'
+                      }`}
                   />
                   <span>{item.label}</span>
 
@@ -212,15 +228,6 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
               );
             })}
 
-            {/* Quick Policy Trigger */}
-            <button
-              type="button"
-              onClick={() => onOpenLegal?.('terms')}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 transition-all font-semibold cursor-pointer group"
-            >
-              <Scale size={15} className="text-slate-400 group-hover:text-amber-600 transition-colors" />
-              <span>Policies</span>
-            </button>
 
             {/* Drive with Us Captain Partner CTA */}
             <a
@@ -267,7 +274,7 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-4 shadow-2xl animate-in slide-in-from-top-2 duration-200">
-          
+
           {/* Quick Booking Action Inside Mobile Drawer */}
           <div className="grid grid-cols-2 gap-2">
             <button
@@ -305,11 +312,10 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
                   key={item.id}
                   href={`#${item.id}`}
                   onClick={(e) => handleNavClick(e, item.id)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-colors ${
-                    isActive
-                      ? 'bg-slate-900 text-white font-bold shadow-xs'
-                      : 'hover:bg-slate-50 text-slate-700 hover:text-slate-950'
-                  }`}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-colors ${isActive
+                    ? 'bg-slate-900 text-white font-bold shadow-xs'
+                    : 'hover:bg-slate-50 text-slate-700 hover:text-slate-950'
+                    }`}
                 >
                   <span className="flex items-center gap-3">
                     <IconComp size={17} className={isActive ? 'text-[#F5B800]' : 'text-slate-500'} />
@@ -327,7 +333,7 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
             })}
 
             {/* Legal & Compliance Policies trigger */}
-            <button
+            {/* <button
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -342,18 +348,22 @@ export default function Navbar({ onBookClick, onOpenLegal }) {
               <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">
                 5 Policies
               </span>
-            </button>
+            </button> */}
           </nav>
 
           {/* Quick Helpline Box */}
           <div className="pt-2 border-t border-slate-100">
-            <a
-              href="tel:04060007000"
-              className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold hover:bg-slate-200 transition-colors"
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenSupport?.();
+              }}
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-colors cursor-pointer"
             >
-              <PhoneCall size={14} className="text-blue-600" />
-              <span>National 24/7 Helpline: 040-6000-7000</span>
-            </a>
+              <PhoneCall size={14} className="text-[#F5B800]" />
+              <span>National 24/7 Command Desk: 040-6000-7000</span>
+            </button>
           </div>
 
         </div>
