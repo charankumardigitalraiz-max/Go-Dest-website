@@ -41,7 +41,8 @@ import {
   CheckCheck
 } from 'lucide-react';
 import { AutoRickshawIcon } from './VehicleIcon';
-import Navbar from './Navbar';
+import Logo from './Logo';
+import AppDownloadModal from './AppDownloadModal';
 import Footer from './Footer';
 
 export default function SupportScreen({
@@ -53,6 +54,9 @@ export default function SupportScreen({
   onSelectCategory,
   onSelectTab
 }) {
+  const [isAppModalOpen, setIsAppModalOpen] = useState(false);
+  const [modalTab, setModalTab] = useState('rider');
+
   // Navigation tabs: 'console' (form) | 'track' | 'channels'
   const [activeConsoleTab, setActiveConsoleTab] = useState('ticket');
   const [searchQuery, setSearchQuery] = useState('');
@@ -192,7 +196,7 @@ export default function SupportScreen({
   const faqs = [
     {
       q: 'How does the Zero Surge refund guarantee work during rain or peak traffic?',
-      a: 'GODest enforces 1.0x flat regular pricing at all times. If any driver or external meter demands extra surge pricing during rain or peak rush hours, simply submit your Ride ID. Our command desk audits the GPS trip telemetry and processes an instant UPI refund directly to your linked account within 15 minutes.'
+      a: 'Go Dest enforces 1.0x flat regular pricing at all times. If any driver or external meter demands extra surge pricing during rain or peak rush hours, simply submit your Ride ID. Our command desk audits the GPS trip telemetry and processes an instant UPI refund directly to your linked account within 15 minutes.'
     },
     {
       q: 'I left a phone or bag in an auto / cab. How do I recover it immediately?',
@@ -225,53 +229,106 @@ export default function SupportScreen({
         </svg>
       </div>
 
-      {/* Global Navigation Header (Without support link as requested) */}
-      <Navbar
-        onBookClick={onBookClick}
-        onOpenLegal={onOpenLegal}
-        onOpenSupport={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        onNavigateHome={onNavigateHome}
-      />
+      {/* Top Midnight Trust Bar: Sleek, high-contrast & premium */}
+      <div className="bg-[#0F172A] text-slate-300 text-[11px] sm:text-xs py-1.5 px-4 border-b border-slate-800 relative z-50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-3 font-medium">
+            <span className="inline-flex items-center gap-1.5 font-bold text-[#F5B800]">
+              <Zap size={12} className="fill-[#F5B800]" />
+              <span>Zero-Surge Guaranteed</span>
+            </span>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <span className="hidden sm:inline text-slate-300">
+              24/7 National Operations Command • Direct Police 112 Integrated
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <a
+              href="tel:04060007000"
+              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition-colors cursor-pointer"
+              title="Call 24/7 Command Hotline"
+            >
+              <PhoneCall size={12} className="text-[#F5B800]" />
+              <span className="hidden sm:inline text-slate-400">24/7 Command Hotline:</span>
+              <strong className="text-white font-bold tracking-wide">040-6000-7000</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Screen Header (Dedicated, sticky, clean) */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_2px_12px_-4px_rgba(15,23,42,0.06)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-18 sm:h-20">
+
+            {/* Left: Logo & Breadcrumbs */}
+            <div className="flex items-center gap-4 sm:gap-6">
+              <button
+                type="button"
+                onClick={() => onNavigateHome?.()}
+                className="flex-shrink-0 transition-opacity hover:opacity-95 cursor-pointer"
+                title="Return to Home"
+              >
+                <Logo size="medium" />
+              </button>
+
+              <div className="hidden md:flex items-center gap-2 text-xs text-slate-500 font-semibold border-l border-slate-200 pl-4">
+                <button
+                  type="button"
+                  onClick={() => onNavigateHome?.()}
+                  className="hover:text-blue-600 transition-colors cursor-pointer"
+                >
+                  Home
+                </button>
+                <span>/</span>
+                <span className="text-slate-700">Rider Support</span>
+                <span>/</span>
+                <span className="text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                  24/7 Resolution Hub
+                </span>
+              </div>
+            </div>
+
+            {/* Right: Actions */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <button
+                type="button"
+                onClick={() => onNavigateHome?.()}
+                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold shadow-2xs transition-all cursor-pointer"
+              >
+                <ArrowLeft size={15} />
+                <span>Back to Home</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setModalTab('rider');
+                  setIsAppModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 sm:gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 font-bold px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm shadow-sm hover:shadow transition-all cursor-pointer"
+              >
+                <Sparkles size={15} />
+                <span>Book Ride</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </header>
 
       {/* ========================================================= */}
       {/* 1. HERO HEADER: CLEAN, AIRY & PURPOSEFUL                  */}
       {/* ========================================================= */}
-      <section className="relative z-10 pt-8 pb-8 sm:pt-12 sm:pb-10">
+      <section className="relative z-10 pt-10 pb-8 sm:pt-14 sm:pb-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Top Bar: Breadcrumb + Live SLA Indicator + Hotline */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-            <button
-              onClick={() => onNavigateHome?.()}
-              className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-xs font-bold text-slate-600 hover:text-[#2563EB] hover:border-blue-300 shadow-2xs transition-all cursor-pointer"
-            >
-              <ArrowLeft size={13} className="group-hover:-translate-x-0.5 transition-transform" />
-              <span>Back to Home</span>
-            </button>
-
-            <div className="flex items-center gap-2.5">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>24/7 Command Desk Live</span>
-                <span className="text-emerald-400">•</span>
-                <span className="text-emerald-700 font-medium">Pickup &lt; 45s</span>
-              </div>
-
-              <a
-                href="tel:04060007000"
-                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 shadow-2xs transition-all"
-              >
-                <PhoneCall size={12} className="text-[#F5B800]" />
-                <span>040-6000-7000</span>
-              </a>
-            </div>
-          </div>
-
           {/* Main Title Cluster */}
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5B800]/20 text-slate-950 text-xs font-extrabold uppercase tracking-wider font-['Outfit'] border border-[#F5B800]/50 shadow-2xs">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5B800]/20 text-slate-950 text-xs font-extrabold uppercase tracking-wider font-['Outfit'] border border-[#F5B800]/50 shadow-2xs">
               <Sparkles size={13} className="text-amber-700" />
-              <span>GODest National Rider Care</span>
+              <span>Go Dest 24/7 National Rider Care</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-black font-['Outfit'] tracking-tight text-slate-900 leading-[1.08]">
@@ -282,8 +339,28 @@ export default function SupportScreen({
             </h1>
 
             <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-medium">
-              Immediate assistance for Zero-Surge price adjustments, forgotten belongings recovery, driver conduct disputes, and safety escalations.
+              Immediate assistance for Zero-Surge price adjustments, forgotten belongings recovery, driver conduct disputes, and 24/7 safety response across all ride categories.
             </p>
+
+            {/* Live Service Level SLA Badges */}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5 text-xs">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>24/7 Command Desk Live</span>
+                <span className="text-emerald-400">•</span>
+                <span className="text-emerald-700 font-medium">Response &lt; 45s</span>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 font-bold shadow-2xs">
+                <Zap size={13} className="text-[#2563EB]" />
+                <span>15-Minute Zero Surge UPI Refund</span>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-900 font-bold shadow-2xs">
+                <ShieldCheck size={13} className="text-amber-700" />
+                <span>Police 112 & Aadhaar Verified</span>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -592,7 +669,7 @@ export default function SupportScreen({
 
                     <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
                       <a
-                        href={`https://wa.me/914060007000?text=Hi%20GODest,%20I%20have%20created%20Ticket%20${generatedTicketId}%20and%20need%20assistance.`}
+                        href={`https://wa.me/914060007000?text=Hi%20Go%20Dest,%20I%20have%20created%20Ticket%20${generatedTicketId}%20and%20need%20assistance.`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="py-3 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm transition-all"
@@ -889,7 +966,7 @@ export default function SupportScreen({
               <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <a
-                    href="https://wa.me/914060007000?text=Hi%20GODest%20Support,%20I%20need%20urgent%20help%20with%20my%20ride"
+                    href="https://wa.me/914060007000?text=Hi%20Go%20Dest%20Support,%20I%20need%20urgent%20help%20with%20my%20ride"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-5 rounded-2xl bg-emerald-50/50 border border-emerald-200 hover:border-emerald-300 hover:shadow-md transition-all flex items-start gap-3.5 group cursor-pointer"
@@ -1056,6 +1133,17 @@ export default function SupportScreen({
         onBookClick={onBookClick}
         onOpenLegal={onOpenLegal}
         onOpenSupport={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      />
+
+      {/* App Store & Play Store Download / Book Ride Modal */}
+      <AppDownloadModal
+        isOpen={isAppModalOpen}
+        onClose={() => setIsAppModalOpen(false)}
+        defaultTab={modalTab}
+        onNavigateToPartner={() => {
+          setIsAppModalOpen(false);
+          onNavigateHome?.('contact-section');
+        }}
       />
     </div>
   );

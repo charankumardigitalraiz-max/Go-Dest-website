@@ -153,18 +153,18 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
 
           {/* Right Support Desk & Legal Center */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <button
+            {/* <button
               type="button"
               onClick={() => onOpenLegal?.('terms')}
               className="hidden lg:inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400 hover:text-white transition-colors cursor-pointer"
             >
               <Scale size={11} className="text-amber-400" />
               <span>Legal Center</span>
-            </button>
+            </button> */}
 
             <span className="hidden lg:inline text-slate-700">|</span>
 
-            <button
+            {/* <button
               type="button"
               onClick={() => onOpenSupport?.()}
               className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition-colors cursor-pointer"
@@ -173,7 +173,7 @@ export default function Navbar({ onBookClick, onOpenLegal, onOpenSupport, onNavi
               <PhoneCall size={12} className="text-[#F5B800]" />
               <span className="hidden sm:inline text-slate-400">24/7 Desk:</span>
               <strong className="text-white font-bold tracking-wide">040-6000-7000</strong>
-            </button>
+            </button> */}
           </div>
 
         </div>

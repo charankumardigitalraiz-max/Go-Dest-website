@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Logo from './Logo';
 import {
   FileText,
@@ -15,6 +15,7 @@ import {
   AlertTriangle,
   HeartHandshake,
   Sparkles,
+  ChevronLeft,
   ChevronRight,
   Printer,
   Share2,
@@ -95,6 +96,22 @@ export default function LegalScreen({
     }
   };
 
+  const tabsContainerRef = useRef(null);
+
+  const scrollTabs = (direction) => {
+    if (tabsContainerRef.current) {
+      const scrollAmount = direction === 'left' ? -200 : 200;
+      tabsContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    const activeBtn = document.getElementById(`legal-tab-btn-${activeTab}`);
+    if (activeBtn) {
+      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, [activeTab]);
+
   const handleShare = () => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href);
@@ -116,11 +133,11 @@ export default function LegalScreen({
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-900 font-['Plus_Jakarta_Sans'] selection:bg-amber-200 selection:text-slate-900">
 
       {/* Top Midnight Trust Bar */}
-      <div className="bg-[#0F172A] text-slate-300 text-[11px] sm:text-xs py-1.5 px-4 border-b border-slate-800">
+      <div className="bg-brand-dark text-slate-300 text-[11px] sm:text-xs py-1.5 px-4 border-b border-slate-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2.5 sm:gap-3 font-medium">
-            <span className="inline-flex items-center gap-1.5 font-bold text-[#F5B800]">
-              <Zap size={12} className="fill-[#F5B800]" />
+            <span className="inline-flex items-center gap-1.5 font-bold text-primary">
+              <Zap size={12} className="fill-primary" />
               <span>Zero-Surge Guaranteed</span>
             </span>
             <span className="text-slate-600 hidden sm:inline">•</span>
@@ -136,7 +153,7 @@ export default function LegalScreen({
               className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition-colors cursor-pointer"
               title="Open 24/7 Support Desk"
             >
-              <PhoneCall size={12} className="text-[#F5B800]" />
+              <PhoneCall size={12} className="text-primary" />
               <span className="hidden sm:inline text-slate-400">24/7 National Desk:</span>
               <strong className="text-white font-bold tracking-wide">040-6000-7000</strong>
             </button>
@@ -147,53 +164,37 @@ export default function LegalScreen({
       {/* Screen Header */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_2px_12px_-4px_rgba(15,23,42,0.06)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-18 sm:h-20">
+          <div className="flex items-center justify-between h-14 sm:h-15">
 
-            {/* Left: Logo & Breadcrumbs */}
-            <div className="flex items-center gap-4 sm:gap-6">
+            {/* Left: Logo */}
+            <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => onNavigateHome()}
-                className="flex-shrink-0 transition-opacity hover:opacity-95 cursor-pointer"
+                className="flex-shrink-0 transition-opacity hover:opacity-95 cursor-pointer py-1"
                 title="Return to Home"
               >
-                <Logo size="medium" />
+                <Logo size="small" />
               </button>
-
-              <div className="hidden md:flex items-center gap-2 text-xs text-slate-500 font-semibold border-l border-slate-200 pl-4">
-                <button
-                  type="button"
-                  onClick={() => onNavigateHome()}
-                  className="hover:text-blue-600 transition-colors cursor-pointer"
-                >
-                  Home
-                </button>
-                <span>/</span>
-                <span className="text-slate-700">Legal & Policies</span>
-                <span>/</span>
-                <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
-                  {currentTabObj.shortTitle}
-                </span>
-              </div>
             </div>
 
             {/* Right: Actions */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => onNavigateHome()}
-                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold shadow-2xs transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold shadow-2xs transition-all cursor-pointer"
               >
-                <ArrowLeft size={15} />
+                <ArrowLeft size={14} />
                 <span>Back to Rides</span>
               </button>
 
               <button
                 type="button"
                 onClick={onBookClick}
-                className="flex items-center gap-1.5 sm:gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 font-bold px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm shadow-sm hover:shadow transition-all cursor-pointer"
+                className="flex items-center gap-1.5 bg-primary hover:bg-primary-hover text-brand-black font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-sm hover:shadow transition-all cursor-pointer"
               >
-                <Sparkles size={15} />
+                <Sparkles size={14} />
                 <span>Book Ride</span>
               </button>
             </div>
@@ -202,42 +203,37 @@ export default function LegalScreen({
         </div>
       </header>
 
-      {/* Hero Banner for Legal Screen */}
-      <section className="bg-gradient-to-b from-slate-900 via-slate-850 to-slate-900 text-white py-10 sm:py-14 border-b border-slate-800 relative overflow-hidden">
-        {/* Ambient golden road light lines */}
+      {/* Hero Banner for Legal Screen (Compact, Clean & Low-Profile) */}
+      <section className="bg-gradient-to-r from-[#0B132B] via-[#0F172A] to-[#1E293B] text-white py-4 sm:py-5 border-b border-slate-800 relative overflow-hidden">
+        {/* Ambient Brand Glowing Orbs */}
         <div className="absolute inset-0 opacity-15 pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-400 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 right-10 w-80 h-80 bg-blue-500 rounded-full blur-3xl"></div>
+          <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary rounded-full blur-3xl" />
+          <div className="absolute top-1/2 right-10 w-72 h-72 bg-secondary rounded-full blur-3xl" />
         </div>
+        <div className="absolute inset-0 road-pattern-bg opacity-20 pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-3 sm:space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-300/30 text-amber-300 text-xs font-bold tracking-wide uppercase">
-              <Scale size={14} />
-              <span>GODest Legal & Regulatory Portal</span>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/15 border border-primary/30 text-primary text-[10.5px] font-bold tracking-wide uppercase font-['Outfit']">
+                <Scale size={12} className="text-primary" />
+                <span>Go Dest Legal & Regulatory Portal</span>
+              </div>
+
+              <h1 className="text-lg sm:text-2xl font-black font-['Outfit'] tracking-tight text-white">
+                Terms, Policies & <span className="text-primary">Consumer Charter</span>
+              </h1>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl font-extrabold font-['Outfit'] tracking-tight text-white">
-              Terms, Policies & Consumer Charter
-            </h1>
-
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-              Official regulatory guidelines, fare transparency disclosures, data protection frameworks, and grievance redressal protocols governing the nationwide GODest platform.
-            </p>
-
-            {/* Compliance Pills */}
-            <div className="flex flex-wrap items-center gap-2 pt-2 text-[11px] font-semibold text-slate-300">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/10 border border-white/15">
+            {/* Compliance Quick Badges (Compact horizontal layout) */}
+            <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold text-slate-200">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur-xs border border-white/15 shadow-2xs">
                 <CheckCircle2 size={12} className="text-emerald-400" />
                 <span>DPDP Act 2023 Compliant</span>
               </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/10 border border-white/15">
-                <CheckCircle2 size={12} className="text-emerald-400" />
-                <span>Motor Vehicle Aggregator Guidelines 2020</span>
-              </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/10 border border-white/15">
-                <CheckCircle2 size={12} className="text-emerald-400" />
-                <span>Consumer Protection (E-Commerce) Rules 2020</span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur-xs border border-white/15 shadow-2xs">
+                <Zap size={12} className="text-primary fill-primary" />
+                <span>100% Zero-Surge Mandate</span>
               </span>
             </div>
           </div>
@@ -245,69 +241,101 @@ export default function LegalScreen({
       </section>
 
       {/* Main Content Area: Sidebar Directory + Document Reader */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+      <main className="flex-1 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-3 sm:py-5 lg:py-7 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-4 lg:gap-10 items-start">
 
-          {/* Left Column: Policy Directory Sidebar (4 Cols) */}
-          <aside className="lg:col-span-4 space-y-5 lg:sticky lg:top-26">
+          {/* Left Column: Policy Directory Sidebar / Mobile Horizontal Tabs Bar (4 Cols on lg) */}
+          <aside className="lg:col-span-4 space-y-0 lg:space-y-5 lg:sticky lg:top-22">
 
-            <div className="bg-white rounded-2xl border border-slate-200 p-3 sm:p-4 shadow-xs space-y-1.5">
-              <div className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 font-['Outfit']">
+            <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200 p-1.5 sm:p-2.5 lg:p-4 shadow-2xs sm:shadow-xs">
+              <div className="hidden lg:block px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 font-['Outfit']">
                 Policy Directory
               </div>
 
-              {tabs.map((tab) => {
-                const IconComp = tab.icon;
-                const isActive = activeTab === tab.id;
+              {/* Mobile Horizontal Tabs with Left & Right Scroll Buttons */}
+              <div className="flex items-center gap-1">
+                {/* Scroll Left Button (Mobile only) */}
+                <button
+                  type="button"
+                  onClick={() => scrollTabs('left')}
+                  className="lg:hidden flex-shrink-0 w-7 h-9 flex items-center justify-center rounded-lg bg-slate-50 hover:bg-amber-50 active:bg-amber-100 text-slate-600 hover:text-slate-900 border border-slate-200 hover:border-amber-300 transition-all cursor-pointer shadow-2xs active:scale-95"
+                  aria-label="Scroll tabs left"
+                  title="Scroll left"
+                >
+                  <ChevronLeft size={16} />
+                </button>
 
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => handleTabChange(tab.id)}
-                    className={`w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left cursor-pointer group ${isActive
-                        ? 'bg-slate-900 text-white font-bold shadow-xs'
-                        : 'text-slate-700 hover:text-slate-950 hover:bg-slate-50'
-                      }`}
-                  >
-                    <div
-                      className={`p-2 rounded-lg flex-shrink-0 transition-colors ${isActive
-                          ? 'bg-[#F5B800] text-slate-950 font-bold'
-                          : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
-                        }`}
-                    >
-                      <IconComp size={16} />
-                    </div>
+                {/* Mobile: Horizontal scrollable strip | Desktop: Vertical column stack */}
+                <div
+                  ref={tabsContainerRef}
+                  className="flex-1 flex flex-row lg:flex-col gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 px-0.5 lg:px-0 lg:py-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                >
+                  {tabs.map((tab) => {
+                    const IconComp = tab.icon;
+                    const isActive = activeTab === tab.id;
 
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-1">
-                        <span className="text-xs sm:text-sm font-bold truncate">
-                          {tab.shortTitle}
-                        </span>
-                        <ChevronRight
-                          size={14}
-                          className={`transition-transform flex-shrink-0 ${isActive
-                              ? 'text-[#F5B800] translate-x-0.5'
-                              : 'text-slate-400 group-hover:translate-x-0.5'
-                            }`}
-                        />
-                      </div>
-                      <span
-                        className={`text-[11px] block mt-0.5 line-clamp-1 ${isActive ? 'text-slate-300' : 'text-slate-500'
+                    return (
+                      <button
+                        key={tab.id}
+                        id={`legal-tab-btn-${tab.id}`}
+                        type="button"
+                        onClick={() => handleTabChange(tab.id)}
+                        className={`flex-shrink-0 flex items-center lg:items-start gap-2 sm:gap-2.5 lg:gap-3 px-3 py-2 sm:px-3.5 sm:py-2.5 lg:p-3.5 rounded-xl lg:rounded-2xl transition-all text-left cursor-pointer group whitespace-nowrap lg:whitespace-normal ${isActive
+                          ? 'legal-tab-active font-black ring-2 ring-primary/25 shadow-xs'
+                          : 'legal-tab-inactive'
                           }`}
                       >
-                        {tab.tag}
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
+                        <div
+                          className={`p-1.5 sm:p-2 lg:p-2.5 rounded-lg lg:rounded-xl flex-shrink-0 transition-colors shadow-2xs ${isActive
+                            ? 'legal-tab-icon-active font-bold'
+                            : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
+                            }`}
+                        >
+                          <IconComp size={15} />
+                        </div>
+
+                        <div className="min-w-0">
+                          <div className="flex items-center justify-between gap-1.5">
+                            <span className={`text-xs sm:text-sm font-bold truncate ${isActive ? 'text-brand-black font-extrabold' : ''}`}>
+                              {tab.shortTitle}
+                            </span>
+                            <ChevronRight
+                              size={15}
+                              className={`hidden lg:block transition-transform flex-shrink-0 ${isActive
+                                ? 'text-brand-black font-black translate-x-0.5'
+                                : 'text-slate-400 group-hover:translate-x-0.5'
+                                }`}
+                            />
+                          </div>
+                          <span
+                            className={`hidden lg:block text-[11px] mt-0.5 line-clamp-1 ${isActive ? 'text-brand-black/90 font-semibold' : 'text-slate-500'
+                              }`}
+                          >
+                            {tab.tag}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Scroll Right Button (Mobile only) */}
+                <button
+                  type="button"
+                  onClick={() => scrollTabs('right')}
+                  className="lg:hidden flex-shrink-0 w-7 h-9 flex items-center justify-center rounded-lg bg-slate-50 hover:bg-amber-50 active:bg-amber-100 text-slate-600 hover:text-slate-900 border border-slate-200 hover:border-amber-300 transition-all cursor-pointer shadow-2xs active:scale-95"
+                  aria-label="Scroll tabs right"
+                  title="Scroll right"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
             </div>
 
-            {/* Quick Assistance & Emergency Escalation Box */}
-            <div className="bg-gradient-to-b from-amber-50/80 to-white rounded-2xl border border-amber-200 p-4 space-y-3.5 shadow-2xs">
+            {/* Quick Assistance & Emergency Escalation Box (visible on desktop sidebar) */}
+            <div className="hidden lg:block bg-gradient-to-b from-amber-50/80 to-white rounded-2xl border border-amber-200 p-4 space-y-3.5 shadow-2xs">
               <div className="flex items-center gap-2 text-amber-950 font-bold text-xs uppercase tracking-wider font-['Outfit']">
-                <Info size={15} className="text-[#F5B800]" />
+                <Info size={15} className="text-primary" />
                 <span>Official Compliance Support</span>
               </div>
 
@@ -355,13 +383,13 @@ export default function LegalScreen({
           </aside>
 
           {/* Right Column: Full Document Reading View (8 Cols) */}
-          <article className="lg:col-span-8 bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs space-y-8">
+          <article className="lg:col-span-8 bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-4 sm:p-8 lg:p-10 shadow-xs space-y-6 sm:space-y-8">
 
             {/* Document Header */}
             <div className="pb-6 border-b border-slate-200 space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">
+                  <span className="badge-primary text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-2xs">
                     {currentTabObj.tag}
                   </span>
                   <span className="text-xs text-slate-400">•</span>
@@ -836,16 +864,65 @@ export default function LegalScreen({
 
           </article>
 
+          {/* Quick Assistance & Emergency Escalation Box (Mobile View - placed below reading article) */}
+          <div className="block lg:hidden bg-gradient-to-b from-amber-50/80 to-white rounded-2xl border border-amber-200 p-4 space-y-3.5 shadow-2xs mt-2">
+            <div className="flex items-center gap-2 text-amber-950 font-bold text-xs uppercase tracking-wider font-['Outfit']">
+              <Info size={15} className="text-primary" />
+              <span>Official Compliance Support</span>
+            </div>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              For official legal notices, police enquiries, or consumer dispute resolution, contact our central compliance team:
+            </p>
+
+            <div className="space-y-2 text-xs font-semibold text-slate-700">
+              <div className="flex items-center gap-2">
+                <PhoneCall size={13} className="text-blue-600 flex-shrink-0" />
+                <a href="tel:04060007000" className="hover:text-blue-600 text-slate-900 font-bold">
+                  040-6000-7000 (Desk)
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail size={13} className="text-blue-600 flex-shrink-0" />
+                <a href="mailto:grievance@godest.in" className="hover:text-blue-600">
+                  grievance@godest.in
+                </a>
+              </div>
+              <div className="flex items-start gap-2">
+                <MapPin size={13} className="text-blue-600 flex-shrink-0 mt-0.5" />
+                <span>Cyber Towers Road, Hitec City, Hyderabad 500081</span>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-amber-200/60 flex items-center gap-2 text-[11px] font-bold">
+              <a
+                href="tel:112"
+                className="flex-1 flex items-center justify-center gap-1 py-1.5 px-2 rounded-lg bg-red-50 border border-red-200 text-red-700 hover:bg-red-100 transition-colors"
+              >
+                <AlertTriangle size={12} className="text-red-600" />
+                <span>Police 112</span>
+              </a>
+              <a
+                href="tel:1091"
+                className="flex-1 flex items-center justify-center gap-1 py-1.5 px-2 rounded-lg bg-pink-50 border border-pink-200 text-pink-700 hover:bg-pink-100 transition-colors"
+              >
+                <HeartHandshake size={12} className="text-pink-600" />
+                <span>SHE 1091</span>
+              </a>
+            </div>
+          </div>
+
         </div>
-      </main>
+      </main >
 
       {/* Proper Global Website Footer */}
-      <Footer
+      < Footer
         onBookClick={onBookClick}
-        onOpenLegal={(tab) => handleTabChange(tab)}
+        onOpenLegal={(tab) => handleTabChange(tab)
+        }
         onOpenSupport={onOpenSupport}
       />
 
-    </div>
+    </div >
   );
 }
