@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from './Logo';
+import AppDownloadModal from './AppDownloadModal';
 import {
   PhoneCall,
   Mail,
@@ -23,7 +24,19 @@ import {
 } from 'lucide-react';
 import { AutoRickshawIcon } from './VehicleIcon';
 
-export default function Footer({ onBookClick: _onBookClick, onOpenLegal, onOpenSupport } = {}) {
+export default function Footer({ onBookClick: _onBookClick, onOpenLegal, onOpenSupport, onOpenAppModal } = {}) {
+  const [isAppModalOpen, setIsAppModalOpen] = useState(false);
+  const [modalTab, setModalTab] = useState('partner');
+
+  const handleOpenPartner = () => {
+    if (onOpenAppModal) {
+      onOpenAppModal('partner');
+    } else {
+      setModalTab('partner');
+      setIsAppModalOpen(true);
+    }
+  };
+
   return (
     <footer className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-amber-50/30 text-slate-700 pt-12 pb-8 border-t border-slate-200">
 
@@ -213,18 +226,17 @@ export default function Footer({ onBookClick: _onBookClick, onOpenLegal, onOpenS
                 </a>
               </li>
               <li className="pt-1">
-                <a
-                  href="https://wa.me/914060007000?text=Hi%20GODest,%20I%20want%20to%20register%20as%20a%20Captain%20(Driver%20Partner)"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-lg transition-colors"
+                <button
+                  type="button"
+                  onClick={handleOpenPartner}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
                 >
                   <Zap size={13} className="text-[#F5B800] fill-[#F5B800]" />
                   <span>Drive with Us (Captain)</span>
                   <span className="text-[10px] bg-[#F5B800] text-slate-950 px-1.5 py-0.2 rounded font-bold">
                     Earn
                   </span>
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -257,17 +269,17 @@ export default function Footer({ onBookClick: _onBookClick, onOpenLegal, onOpenS
             </div>
 
             {/* Direct Support Portal Button */}
-            <button
+            {/* <button
               type="button"
               onClick={() => onOpenSupport?.()}
               className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-bold text-xs transition-colors cursor-pointer"
             >
               <Headphones size={13} />
               <span>Open 24/7 Support Desk</span>
-            </button>
+            </button> */}
 
             {/* Emergency Hotline Chips */}
-            <div className="pt-1 flex items-center gap-2 text-[11px] font-semibold">
+            {/* <div className="pt-1 flex items-center gap-2 text-[11px] font-semibold">
               <a
                 href="tel:1091"
                 className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-pink-50 border border-pink-200 text-pink-700 hover:bg-pink-100 transition-colors"
@@ -282,19 +294,18 @@ export default function Footer({ onBookClick: _onBookClick, onOpenLegal, onOpenS
                 <AlertTriangle size={12} className="text-red-600" />
                 <span>Police: 112</span>
               </a>
-            </div>
+            </div> */}
 
             {/* Partner with Us (Driver) Action Button */}
-            <a
-              href="https://wa.me/914060007000?text=Hi%20GODest,%20I%20want%20to%20register%20as%20a%20Captain%20(Driver%20Partner)"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={handleOpenPartner}
               className="w-full flex items-center justify-center gap-2 bg-[#F5B800] hover:bg-[#E5A800] text-slate-950 font-bold py-2.5 px-4 rounded-xl text-xs shadow-sm hover:shadow transition-all active:scale-95 cursor-pointer mt-2 group"
             >
               <Car size={14} className="flex-shrink-0" />
               <span>Partner with Us (Driver)</span>
               <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-            </a>
+            </button>
           </div>
 
         </div>
@@ -386,6 +397,20 @@ export default function Footer({ onBookClick: _onBookClick, onOpenLegal, onOpenS
         </div>
 
       </div>
+
+      {/* App Store & Play Store Download / Partner with Us Modal */}
+      <AppDownloadModal
+        isOpen={isAppModalOpen}
+        onClose={() => setIsAppModalOpen(false)}
+        defaultTab={modalTab}
+        onNavigateToPartner={() => {
+          setIsAppModalOpen(false);
+          const el = document.getElementById('contact-section');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      />
     </footer>
   );
 }
